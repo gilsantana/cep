@@ -15,9 +15,9 @@
 				</li> 
 			<% end %>
 				<li class="last">
-					<a class="all-messages" title="See all comments awaiting confirmation." href="#">See all comments!
-						<span class="unreaded">8 awaiting confirm.</span>
-					</a>
+					<%= link_to controls_path, :class=>"all-messages" do %>
+						Veja todos os controles<span class="unreaded">Total de <%= pluralize(Control.count, "controle", "controles") %>.</span>
+						<% end %>
 				</li> 
 			</ul> 
 		</div> 
