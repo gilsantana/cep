@@ -1,5 +1,28 @@
-<h1>New control</h1>
+<%= form_for(@control) do |f| %>
+  <% if @control.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@control.errors.count, "error") %> prohibited this control from being saved:</h2>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', controls_path %>
+      <ul>
+      <% @control.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="innerdiv"> 
+	<!-- Tabs --> 
+	<h2 class="head-alt-white">Controles</h2> 
+	<div class="innercontent"> 
+		<!-- tab "panes" --> 
+		<div class="panes"> 
+			<div> 
+				<fieldset> 
+				<legend>Novo Controle</legend> 
+					<%= render "form", {:f=>f} %>
+				</fieldset> 
+				</div> 
+		</div> 
+	</div> 
+</div> 
+<% end %>
