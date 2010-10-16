@@ -4,17 +4,16 @@
 		<h2 class="head">Controles</h2> 
 		<div class="innercontent clear"> 
 			<h4>Recentes</h4> 
-			<ul id="comments" class="tooltip-enabled"> 
-				<li><a href="#" title="this comment is from John Doe"> 
+			<ul id="comments"> 
+				<% Control.order("created_at DESC").limit(3).each do |controle| %>
+				<li>
 					<%= image_tag "icons/sender.png"%>
-					<span class="sender">John Doe</span> 
-					<span class="description">Hey i liked your theme!</span> 
-					<span class="date">20 minutes ago...</span> </a> 
-					<span class="floatright"><a title="Aprrove this comment" href="#">Approve</a> | 
-						<a title="Delete this comment"  href="#">Delete</a> 
-					</span> 
+					<span class="sender"><%= controle.nome %></span> 
+					<span class="description"><%= controle.descricao %></span> 
+					<span class="date"><%= distance_of_time_in_words(controle.created_at, Time.now) %></span> </a> 
 					<br class="clear"/> 
 				</li> 
+			<% end %>
 				<li class="last">
 					<a class="all-messages" title="See all comments awaiting confirmation." href="#">See all comments!
 						<span class="unreaded">8 awaiting confirm.</span>

@@ -114,6 +114,11 @@
 	<%= render "home/sidebar" %>
 	<!-- end right-sidebar --> 
 	<div id="main-content"> 
+		<% if notice %>
+		<div class="notification successfull closable">
+			<%= notice %> <span class="closelink" title="Close"></span>
+		</div>
+		<% end %>
 		
 		<%= yield %>
 		

@@ -1,15 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Nome:</b>
-  <%= @control.nome %>
-</p>
-
-<p>
-  <b>Descricao:</b>
-  <%= @control.descricao %>
-</p>
-
-
-<%= link_to 'Edit', edit_control_path(@control) %> |
-<%= link_to 'Back', controls_path %>
+<div class="innerdiv"> 
+	<!-- Tabs --> 
+	<h2 class="head-alt-white">Controle</h2> 
+	<%= link_to "Editar", edit_control_path(@control), :class=>"button top-button"%>
+	<div class="innercontent"> 
+		<!-- tab "panes" --> 
+		<div class="panes"> 
+			<div> 
+				<fieldset> 
+					<legend>Informações</legend> 
+					 
+					
+					
+				</fieldset> 
+			</div> 
+		</div> 
+	</div> 
+</div>
