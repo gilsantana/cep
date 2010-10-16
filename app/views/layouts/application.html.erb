@@ -35,7 +35,7 @@
 			<span id="slogan">controle estatístico de processos</span> </div> 
 		<!-- end logo --> 
 		<div id="login-info"> 
-			<img id="profile" alt="profile" src="images/icons/user.png" /> 
+			<%= image_tag "icons/user.png", :id=>:profile %>
 			<p id="top"><span id="name"><%= current_user.name %></span><br /> 
 			<span id="links"> 
 			<a id="message-link" href="#" title="click to see the messages!"> 
@@ -103,13 +103,9 @@
 		</div> 
 		<!-- end div#nav --></div> 
 	<!-- end div#header-top --> 
-	<div class="breadCrumb"> 
-		<ul> 
-			<li class="first"><a href="#">Home</a> </li> 
-			<li><a href="#">Users</a> </li> 
-			<li><a href="#">Roles</a> </li> 
-			<li class="last">Add new role </li> 
-		</ul> 
+	<div class="breadCrumb">
+
+		<%= render_navigation(:renderer => :breadcrumbs) %> 
 	</div> 
 	 
 	<!-- end div#search-box --></div> 
@@ -132,6 +128,8 @@
 </body> 
 <script>
 $(document).ready(function() {
+	$(".breadCrumb li:first").addClass("first");
+	$(".breadCrumb li:last").addClass("last");
 	$("#main-content").css('min-height', 500)
 });
 </script>
