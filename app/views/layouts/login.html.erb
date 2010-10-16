@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<title>CEP :: Controle Estatístico de Processos</title>
+
+<%= stylesheet_link_tag "main" %>
+<%= stylesheet_link_tag "colors/red" %>
+
+ 
+<%= javascript_include_tag "jquery-1.4.2.min" %>
+<%= javascript_include_tag "jquery.tools.min" %>
+<%= javascript_include_tag "platinum-admin-login" %>
+
+
+</head>
+
+<body>
+
+<div id="login">
+	<h2 class="head-alt">CEP :: Login</h2>
+	<ul class="tabs">
+		<li><a href="#">Login</a></li>
+		<li><a href="#">Recuperar senha ?</a></li>
+	</ul>
+	<div class="panes">
+		<div>
+			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+				<fieldset>
+				<legend>Digite suas informações!</legend>
+				<label for="username">Email:</label><%= f.text_field :email %>
+				<label for="password">Senha:</label><%= f.text_field :password %>
+				<input class="button" type="submit" value="Entrar!" />
+				</fieldset>
+			<% end %>
+		</div>
+		<div>
+			<form action="index.html" method="post">
+				<fieldset>
+				<legend>Digite seu email para enviarmos a sua senha!</legend>
+				<label for="email">Email:</label><input id="email" name="email" type="text" />
+				<input class="button pink" type="submit" value="Recuperar" />
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>
