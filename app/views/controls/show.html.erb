@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nome:</b>
+  <%= @control.nome %>
+</p>
+
+<p>
+  <b>Descricao:</b>
+  <%= @control.descricao %>
+</p>
+
+
+<%= link_to 'Edit', edit_control_path(@control) %> |
+<%= link_to 'Back', controls_path %>
