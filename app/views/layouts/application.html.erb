@@ -3,7 +3,7 @@
  
 <head> 
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" /> 
-<title>Platinum Admin</title> 
+<title>CEP :: Controle Estatístico de Processos</title> 
 
 <%= stylesheet_link_tag "main" %>
 <%= stylesheet_link_tag "colors/red" %>
@@ -39,44 +39,19 @@
 			<p id="top"><span id="name"><%= current_user.name %></span><br /> 
 			<span id="links"> 
 			<a id="message-link" href="#" title="click to see the messages!"> 
-			<span id="message-count">1</span> new message. </a></span></p> 
-			<div id="messages-box"> 
-				<h4>Messages</h4> 
-				<h5><a id="new-message" href="#">New Message</a></h5> 
-				<hr /> 
-				<ul id="messages"> 
-					<li class="new"><a href="#"> 
-					<img alt="user" src="images/icons/sender.png" /> 
-					<span class="sender">John Doe</span> 
-					<span class="description">Hi this is just a description...</span> 
-					<span class="date">20 minutes ago...</span> </a></li> 
-					<li><a href="#"> 
-					<img alt="user" src="images/icons/sender.png" /> 
-					<span class="sender">John Doe</span> 
-					<span class="description">Hi this is just a description...</span> 
-					<span class="date">24 minutes ago...</span> </a></li> 
-					<li><a href="#"> 
-					<img alt="user" src="images/icons/sender.png" /> 
-					<span class="sender">John Doe</span> 
-					<span class="description">Hi this is just a description...</span> 
-					<span class="date">50 minutes ago...</span> </a></li> 
-					<li id="last"><a id="all-messages" href="#">See all messages!
-					<span id="unreaded">8 unreaded.</span> </a></li> 
-				</ul> 
-				<br class="clear" /> 
-			</div><!-- end messages-box --> 
+			
 			<a id="power" href="#" title="Logout">logout</a> 
 		</div> 
 		<!-- end login --> 
 		<div id="nav"> 
 			<ul class="sf-menu sf-navbar"> 
-				<li><a id="dashboard" href="#a">Dashboard</a> 
+				<li><a id="dashboard" href="#a">Principal</a> 
 				<ul> 
 					<li><a href="#">dashboard with no submenu, this is description!</a> 
 					</li> 
 				</ul> 
 				</li> 
-				<li class="current"><a id="articles" href="#a">Articles</a> 
+				<li class="current"><a id="articles" href="#a">CEP's</a> 
 				<ul> 
 					<li class="current"><a href="#aa">write an article</a> </li> 
 					<li><a href="#ab">manage articles</a> 
@@ -92,7 +67,7 @@
 					<li><a href="#">tags</a> </li> 
 				</ul> 
 				</li> 
-				<li><a id="users" href="#">Users</a> 
+				<li><a id="users" href="#">Usuários</a> 
 				<ul> 
 					<li><a href="#">list users</a> 
 					<ul> 
@@ -114,7 +89,7 @@
 					<li><a href="#">edit</a> </li> 
 				</ul> 
 				</li> 
-				<li><a id="settings" href="#">Settings</a> 
+				<li><a id="settings" href="#">Configurações</a> 
 				<ul> 
 					<li><a href="#">themes</a> 
 					<ul> 
