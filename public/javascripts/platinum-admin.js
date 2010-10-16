@@ -140,33 +140,7 @@
 	      		});
 		}
 		
-		/* Overriding Javascript's Alert Dialog */
-		function alert(msg) {
-			$('#alert').find('div.alert-content')
-	      		.html(msg);
-	      		$('#alert').modal({
-				position: ["25%",],
-				containerId: 'confirm-container',
-				closeHTML: '<a class="button gray modal-close">OK</a>',
-				onClose: function (dialog) {
-						dialog.data.fadeOut('fast', function () {
-							dialog.container.hide('fast', function () {
-								dialog.overlay.fadeOut('fast', function () {
-									$.modal.close(); // must call this!
-								});
-							});
-						});
-			},
-			onOpen: function (dialog) {
-				dialog.overlay.fadeIn('fast', function () {
-					dialog.container.show('fast', function () {
-						dialog.data.fadeIn('fast');
-					});
-				});
-			}
-	
-				 });
-		}
+		
 						
 		//overrided confirm() func. uses jquery simplemodal
 		function confirm(message, callback, param) {
