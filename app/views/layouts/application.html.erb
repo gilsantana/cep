@@ -106,7 +106,7 @@
 	<!-- end div#search-box --></div> 
 <!-- end header --> 
 <div id="page-wrap"> 
-	<%= render "home/sidebar" %>
+	<%= render "sidebar" rescue render "home/sidebar" %>
 	<!-- end right-sidebar --> 
 	<div id="main-content"> 
 		<% if notice %>
