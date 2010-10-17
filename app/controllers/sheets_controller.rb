@@ -1,6 +1,6 @@
 class SheetsController < ApplicationController
   before_filter :find_control
-  
+
   def find_control
     @control = Control.find(params[:control_id])
   end
@@ -41,21 +41,28 @@ class SheetsController < ApplicationController
 
     respond_to do |format|
       if @sheet.save
-        
-        
+
         s = Openoffice.new(@sheet.arquivo.path)
         s.default_sheet = s.sheets.first
         (s.first_row..s.last_row).each do |linha|
-          @sample = @control.samples.create(:tempo=>DateTime.now)
+          @sample = @control.samples.build
+          if @sheet.first_column_is_date==false
+            if linha==1
+              @sample.tempo = @sheet.initial_time
+            else
+              @sample.tempo = @sheet.initial_time+((linha-1)*@sheet.increment_value).send(@sheet.incremente_type)
+            end
+          else
+            @sample.tempo = s.cell(linha, 1)
+          end
           @sample.save
           (s.first_column..s.last_column).each do |coluna|
-            
+            @item = @sample.items.build
+            @item.valor = s.cell(linha,coluna)
+            @item.save
           end
-          
         end
-       
-        
-        
+
         format.html { redirect_to(control_samples_path(@sheet.control), :notice => 'Planilha Importada com sucesso.') }
         format.xml  { render :xml => @sheet, :status => :created, :location => @sheet }
       else

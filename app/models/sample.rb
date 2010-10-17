@@ -4,4 +4,6 @@ class Sample < ActiveRecord::Base
   
   belongs_to :control
   
+  has_many :items, :dependent=>:destroy
+  
 end
