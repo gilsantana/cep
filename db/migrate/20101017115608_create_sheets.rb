@@ -3,7 +3,7 @@ class CreateSheets < ActiveRecord::Migration
     create_table :sheets do |t|
       t.references :control
       t.boolean :first_column_is_label
-      t.bollean :firs_line_is_label
+      t.boolean :firs_line_is_label
       t.datetime :initial_time
       t.float :increment_value
       t.string :incremente_type

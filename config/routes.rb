@@ -1,7 +1,7 @@
 Qualidade::Application.routes.draw do
-  resources :sheets
-
+  
   resources :controls do
+    resources :sheets
     resources :samples
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101017011250) do
+ActiveRecord::Schema.define(:version => 20101017115608) do
 
   create_table "controls", :force => true do |t|
     t.string   "nome"
@@ -22,6 +22,21 @@ ActiveRecord::Schema.define(:version => 20101017011250) do
   create_table "samples", :force => true do |t|
     t.integer  "control_id"
     t.datetime "tempo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sheets", :force => true do |t|
+    t.integer  "control_id"
+    t.boolean  "first_column_is_label"
+    t.boolean  "firs_line_is_label"
+    t.datetime "initial_time"
+    t.float    "increment_value"
+    t.string   "incremente_type"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

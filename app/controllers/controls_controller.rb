@@ -1,6 +1,5 @@
 class ControlsController < ApplicationController
-  # GET /controls
-  # GET /controls.xml
+
   def index
     @controls = Control.all
 
@@ -10,8 +9,6 @@ class ControlsController < ApplicationController
     end
   end
 
-  # GET /controls/1
-  # GET /controls/1.xml
   def show
     @control = Control.find(params[:id])
 
@@ -21,8 +18,6 @@ class ControlsController < ApplicationController
     end
   end
 
-  # GET /controls/new
-  # GET /controls/new.xml
   def new
     @control = Control.new
 
@@ -32,19 +27,16 @@ class ControlsController < ApplicationController
     end
   end
 
-  # GET /controls/1/edit
   def edit
     @control = Control.find(params[:id])
   end
 
-  # POST /controls
-  # POST /controls.xml
   def create
     @control = Control.new(params[:control])
 
     respond_to do |format|
       if @control.save
-        format.html { redirect_to(@control, :notice => 'Control was successfully created.') }
+        format.html { redirect_to(@control, :notice => 'Controle criado com sucesso.') }
         format.xml  { render :xml => @control, :status => :created, :location => @control }
       else
         format.html { render :action => "new" }
@@ -53,14 +45,12 @@ class ControlsController < ApplicationController
     end
   end
 
-  # PUT /controls/1
-  # PUT /controls/1.xml
   def update
     @control = Control.find(params[:id])
 
     respond_to do |format|
       if @control.update_attributes(params[:control])
-        format.html { redirect_to(@control, :notice => 'Control was successfully updated.') }
+        format.html { redirect_to(@control, :notice => 'Controle atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -69,8 +59,6 @@ class ControlsController < ApplicationController
     end
   end
 
-  # DELETE /controls/1
-  # DELETE /controls/1.xml
   def destroy
     @control = Control.find(params[:id])
     @control.destroy
