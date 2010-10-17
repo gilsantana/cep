@@ -1,6 +1,7 @@
 <table class="full">
 	<thead>
 		<tr class="alt">
+			<th>Id</th>
 			<th>Controle</th>
 			<th>Data</th>
 			<th></th>
@@ -11,14 +12,12 @@
 		<% @controls.each do |controle| %>
 		<tr class="alt">
 			<td><%= link_to controle.id, controle %></td>
+			<td><%= link_to controle.nome, controle %></td>
 			<td><%= l controle.created_at, :format=>:short %></td>
 			<td>
 			<!-- Icons -->
 			<%= link_to image_tag('icons/edit.png'), edit_control_path(controle)%>
-			<a href="#" title="Delete">
-			<img alt="Delete" src="images/icons/delete.png"></a>
-			<a href="#" title="Add">
-			<img alt="Add" src="images/icons/add.png"></a>
+			<%= link_to image_tag('icons/delete.png'), controle, :method=>:delete %>
 			</td>
 		</tr>
 		<% end %>

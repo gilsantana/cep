@@ -7,8 +7,8 @@
 			<ul id="comments"> 
 				<% Control.order("created_at DESC").limit(3).each do |controle| %>
 				<li>
-					<%= image_tag "icons/sender.png"%>
-					<span class="sender"><%= controle.nome %></span> 
+					<%= image_tag "icons/database.png"%>
+					<span class="sender"><%= link_to controle.nome, controle %></span> 
 					<span class="description"><%= controle.descricao %></span> 
 					<span class="date"><%= distance_of_time_in_words(controle.created_at, Time.now) %></span> </a> 
 					<br class="clear"/> 

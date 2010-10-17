@@ -16,6 +16,7 @@ Qualidade::Application.routes.draw do
   end
 
   devise_for :users
+  resources :users
 
   get "home/index"
 
