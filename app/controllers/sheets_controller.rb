@@ -37,11 +37,26 @@ class SheetsController < ApplicationController
   end
 
   def create
-    @sheet = Sheet.new(params[:sheet])
+    @sheet = @control.sheets.create(params[:sheet])
 
     respond_to do |format|
       if @sheet.save
-        format.html { redirect_to(@sheet, :notice => 'Sheet was successfully created.') }
+        
+        
+        s = Openoffice.new(@sheet.arquivo.path)
+        s.default_sheet = s.sheets.first
+        (s.first_row..s.last_row).each do |linha|
+          @sample = @control.samples.create(:tempo=>DateTime.now)
+          @sample.save
+          (s.first_column..s.last_column).each do |coluna|
+            
+          end
+          
+        end
+       
+        
+        
+        format.html { redirect_to(control_samples_path(@sheet.control), :notice => 'Planilha Importada com sucesso.') }
         format.xml  { render :xml => @sheet, :status => :created, :location => @sheet }
       else
         format.html { render :action => "new" }
@@ -55,7 +70,7 @@ class SheetsController < ApplicationController
 
     respond_to do |format|
       if @sheet.update_attributes(params[:sheet])
-        format.html { redirect_to(@sheet, :notice => 'Sheet was successfully updated.') }
+        format.html { redirect_to(@sheet, :notice => 'Planilha atualizada com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

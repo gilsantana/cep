@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sample: 
+  valor: 1.5
+
+two:
+  sample: 
+  valor: 1.5

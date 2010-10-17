@@ -1,4 +1,4 @@
-<%= simple_form_for([@control, @sheet]) do |f| %>
+<%= simple_form_for([@control, @sheet], :html => { :multipart => true }) do |f| %>
 <% if @sheet.errors.any? %>
 <div class="notification errors">
 	<%= pluralize(@sheet.errors.count, "erro impediu", "erros impediram") %> o registro de ser salvo:
@@ -15,13 +15,13 @@
 
 <div class="innerdiv"> 
 	<!-- Tabs --> 
-	<h2 class="head-alt-white">Controles</h2> 
+	<h2 class="head-alt-white">Amostras</h2> 
 	<div class="innercontent"> 
 		<!-- tab "panes" --> 
 		<div class="panes"> 
 			<div> 
 				<fieldset> 
-					<legend>Novo Controle</legend> 
+					<legend>Novas Amostras</legend> 
 					<%= render "form", {:f=>f} %>
 					<input class="button black bigger" type="submit" value="Salvar">
 				</fieldset> 

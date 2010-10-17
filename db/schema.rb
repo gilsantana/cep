@@ -10,11 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101017123628) do
+ActiveRecord::Schema.define(:version => 20101017142640) do
 
   create_table "controls", :force => true do |t|
     t.string   "nome"
     t.text     "descricao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", :force => true do |t|
+    t.integer  "sample_id"
+    t.float    "valor"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -33,10 +40,10 @@ ActiveRecord::Schema.define(:version => 20101017123628) do
     t.datetime "initial_time"
     t.float    "increment_value"
     t.string   "incremente_type"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
+    t.string   "arquivo_file_name"
+    t.string   "arquivo_content_type"
+    t.integer  "arquivo_file_size"
+    t.datetime "arquivo_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "first_column_is_date"

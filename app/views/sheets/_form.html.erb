@@ -1,11 +1,12 @@
+<div class="select-group">
+	<%= f.input :first_column_is_label, :label=>"Primeira coluna é texto?" %>
+	<%= f.input :first_column_is_date, :label=>"Primeira coluna é data?" %>
+	<%= f.input :firs_line_is_label, :label=>"Primeira linha é texto?" %>
+</div>
 
-<%= f.input :first_column_is_label %>
-<%= f.input :firs_line_is_label %>
-
-<%= f.input :initial_time %>
-<%= f.input :increment_value %>
-
-<%= f.input :incremente_type %>
-<%= f.input :file %>
+<%= f.input :initial_time, :label=>"Hora inicial" %>
+<%= f.input :increment_value, :label=>"Incrementar", :as=>:string %>
+<%= f.input :incremente_type, :label=>"A cada", :collection=>[["Minutos", "minute"],["Horas", "hour"], ["Dias", "day"]] %>
+<%= f.input :arquivo %>
 
 
