@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  tamanho: 1
+  a2: 1.5
+  d2: 1.5
+  d3: 1.5
+  d4: 1.5
+  a3: 1.5
+  c4: 1.5
+  b3: 1.5
+  b4: 1.5
+
+two:
+  tamanho: 1
+  a2: 1.5
+  d2: 1.5
+  d3: 1.5
+  d4: 1.5
+  a3: 1.5
+  c4: 1.5
+  b3: 1.5
+  b4: 1.5

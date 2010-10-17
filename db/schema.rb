@@ -10,7 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101017142640) do
+ActiveRecord::Schema.define(:version => 20101017164834) do
+
+  create_table "constants", :force => true do |t|
+    t.integer  "tamanho"
+    t.float    "a2"
+    t.float    "d2"
+    t.float    "d3"
+    t.float    "d4"
+    t.float    "a3"
+    t.float    "c4"
+    t.float    "b3"
+    t.float    "b4"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "controls", :force => true do |t|
     t.string   "nome"
@@ -26,11 +40,23 @@ ActiveRecord::Schema.define(:version => 20101017142640) do
     t.datetime "updated_at"
   end
 
+  create_table "limit_calculations", :force => true do |t|
+    t.integer  "sample_id"
+    t.string   "categoria"
+    t.string   "tipo"
+    t.string   "calculo"
+    t.float    "valor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "samples", :force => true do |t|
     t.integer  "control_id"
     t.datetime "tempo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "media"
+    t.float    "amplitude"
   end
 
   create_table "sheets", :force => true do |t|

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sample: 
+  categoria: MyString
+  tipo: MyString
+  calculo: MyString
+  valor: 1.5
+
+two:
+  sample: 
+  categoria: MyString
+  tipo: MyString
+  calculo: MyString
+  valor: 1.5

@@ -1,7 +1,7 @@
 <table class="full">
 	<thead>
 		<tr class="alt">
-			<th>Amostra</th>
+			<th>Controle</th>
 			<th>Data</th>
 			<th></th>
 		</tr>
@@ -11,7 +11,7 @@
 		<% @controls.each do |controle| %>
 		<tr class="alt">
 			<td><%= link_to controle.id, controle %></td>
-			<td><%= l controle.created_at %></td>
+			<td><%= l controle.created_at, :format=>:short %></td>
 			<td>
 			<!-- Icons -->
 			<%= link_to image_tag('icons/edit.png'), edit_control_path(controle)%>
