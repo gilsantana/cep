@@ -1,7 +1,7 @@
 Qualidade::Application.routes.draw do
-  resources :samples
-
-  resources :controls
+  resources :controls do
+    resources :samples
+  end
 
   devise_for :users
 

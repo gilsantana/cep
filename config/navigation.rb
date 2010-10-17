@@ -5,8 +5,10 @@ SimpleNavigation::Configuration.run do |navigation|
         controles.item :controls, "Novo Controle", new_control_path
         controles.item :controls, @control.nome, @control do |controle|
           controle.item :controls, "Editar", edit_control_path(@control)
+          
+          controle.item :samples, "Amostras", control_samples_path(@control)
+          
         end
-        
       end
     end
   end

@@ -1,0 +1,33 @@
+<table class="full">
+	<thead>
+		<tr class="alt">
+			<th>Article</th>
+			<th>Status</th>
+			<th>Url</th>
+			<th>Column 3</th>
+			<th>Column 4</th>
+			<th>Column 5</th>
+		</tr>
+	</thead>
+	
+	<tbody class="tooltip-enabled">
+		<% @samples.each do |amostra| %>
+		<tr class="alt">
+			<td><h5>Best CSS Tricks!</h5></td>
+			<td><a href="#" title="Approved">
+			<img alt="Approved" src="images/icons/ok.png"></a></td>
+			<td><a href="#" title="title">best_css_tricks</a></td>
+			<td>Consectetur adipiscing</td>
+			<td>Donec tortor diam</td>
+			<td>
+			<!-- Icons --><a href="#" title="Edit">
+			<img alt="Edit" src="images/icons/edit.png"></a>
+			<a href="#" title="Delete">
+			<img alt="Delete" src="images/icons/delete.png"></a>
+			<a href="#" title="Add">
+			<img alt="Add" src="images/icons/add.png"></a>
+			</td>
+		</tr>
+		<% end %>
+		</tbody>
+</table>

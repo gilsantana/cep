@@ -1,25 +1,14 @@
-<h1>Listing samples</h1>
+<div class="innerdiv"> 
+	<h2 class="head-alt-white">Controle</h2> 
+	<ul class="tabs">
+		<li><%= link_to "Informações", @control%></li>
+		<li><%= link_to "Amostras", control_samples_path(@control), :class=>"current"%></li>
+	</ul>
+	<div class="innercontent">
+		<div class="panes">
 
-<table>
-  <tr>
-    <th>Control</th>
-    <th>Tempo</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+			<%= render "tabela" %>
 
-<% @samples.each do |sample| %>
-  <tr>
-    <td><%= sample.control %></td>
-    <td><%= sample.tempo %></td>
-    <td><%= link_to 'Show', sample %></td>
-    <td><%= link_to 'Edit', edit_sample_path(sample) %></td>
-    <td><%= link_to 'Destroy', sample, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Sample', new_sample_path %>
+		</div>
+	</div>
+</div>
