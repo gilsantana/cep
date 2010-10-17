@@ -1,66 +1,5 @@
 <script>
-var chart;
-$(document).ready(function() {
-   chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'container',
-         defaultSeriesType: 'line',
-         marginRight: 130,
-         marginBottom: 25
-      },
-      title: {
-         text: 'Controle Estatístico de Processo - Controle por Variáveis',
-         x: -20 //center
-      },
-      subtitle: {
-         text: 'Média',
-         x: -20
-      },
-      xAxis: {
-         categories: [<%= (1..(@lc_media.size+1)).to_a.join(",") %>]
-      },
-      yAxis: {
-         title: {
-            text: 'Valor'
-         },
-         plotLines: [{
-            value: 0,
-            width: 1,
-            color: '#808080'
-         }]
 
-      },
-      tooltip: {
-         formatter: function() {
-                   return '<b>'+ this.series.name +'</b><br/>'+
-               this.x +': '+ this.y;
-         }
-      },
-      legend: {
-         layout: 'vertical',
-         align: 'right',
-         verticalAlign: 'top',
-         x: -10,
-         y: 100,
-         borderWidth: 0
-      },
-      series: [{
-         name: 'LC',
-         data: [<%= Array.new(@lc_media.size){|i| @lc_media.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
-      },{
-	     name: 'LCI',
-	     data: [<%= Array.new(@lci_media.size){|i| @lci_media.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
-	  },{
-		 name: 'LCS',
-		 data: [<%= Array.new(@lcs_media.size){|i| @lcs_media.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
-	  }	,{
-			 name: 'Média',
-			 data: [<%= Array.new(@control.samples.size){|i| @control.samples.order("tempo ASC")[i].media.round(2) }.join(",") %>]
-		  }]
-   });
-   
-   
-});
 
 
 
@@ -68,7 +7,7 @@ var grafico;
 $(document).ready(function() {
    grafico = new Highcharts.Chart({
       chart: {
-         renderTo: 'segundo_container',
+         renderTo: 'container',
          defaultSeriesType: 'line',
          marginRight: 130,
          marginBottom: 25
@@ -144,16 +83,16 @@ $(document).ready(function() {
 			<h2 class="head-alt-white"><%= @control.nome %></h2>
 			<!-- the tabs -->
 			<ul class="tabs">
-				<li><a href="#" class="current">Média</a></li>
-				<li><a href="#">Amplitude</a></li>
+				<li><%= link_to "Média", variaveis_tipo_1_media_control_path(@control) %></li>
+				<li><%= link_to "Amplitude", variaveis_tipo_1_amplitude_control_path(@control), :class=>:current %></li>
 			</ul>
 			<div class="innercontent">
 				<!-- tab "panes" -->
 				<div class="panes">
-					<div style="display: block; " id="container">
+					<div style="display: none; " id="segundo_container">
 						
 					</div>
-					<div style="display: none; " id="segundo_container">
+					<div style="display: block; " id="container">
 						
 					</div>
 				</div>

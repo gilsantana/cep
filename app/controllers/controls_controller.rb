@@ -96,7 +96,7 @@ class ControlsController < ApplicationController
     @lcs_media = @control.indice :lcs, :variaveis, :tipo1, :media
     @lcs_amplitude = @control.indice :lcs, :variaveis, :tipo1, :amplitude
     
-    render "variaveis/tipo1/media"
+    render "controls/variaveis/tipo1/amplitude"
   end
   
 end

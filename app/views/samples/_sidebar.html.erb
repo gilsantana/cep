@@ -6,9 +6,9 @@
 			<ul id="comments"> 
 				<li>
 					<%= image_tag "icons/stats.png"%>
-					<span class="sender">Controle Por Variável</span> 
-					<span class="description">Tipo 1</span> 
-					<span class="date">Média e Amplitude</span> </a> 
+					<span class="sender"><%= link_to "Controle por Variável", variaveis_tipo_1_media_control_path(@control)%></span> 
+					<span class="description"><%= link_to "Tipo 1", variaveis_tipo_1_media_control_path(@control)%></span> 
+					<span class="date"><%= link_to "Média e Amplitude", variaveis_tipo_1_media_control_path(@control)%></span> </a> 
 					<br class="clear"/> 
 				</li> 
 			</ul> 

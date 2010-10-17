@@ -44,21 +44,21 @@ class Sample < ActiveRecord::Base
     if @lc_amplitude==nil
       @lc_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude})
     end
-    @lc_amplitude.valor = self.amplitude
+    @lc_amplitude.valor = self.control.media_das_amplitudes
     @lc_amplitude.save
 
     @lcs_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_amplitude}).limit(1).last
     if @lcs_amplitude==nil
       @lcs_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_amplitude})
     end
-    @lcs_amplitude.valor = @constant.d4*self.amplitude
+    @lcs_amplitude.valor = @constant.d4*self.control.media_das_amplitudes
     @lcs_amplitude.save
     
     @lci_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_amplitude}).limit(1).last
     if @lci_amplitude==nil
       @lci_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_amplitude})
     end
-    @lci_amplitude.valor = @constant.d3*self.amplitude
+    @lci_amplitude.valor = @constant.d3*self.control.media_das_amplitudes
     @lci_amplitude.save
     #--------------------------
     

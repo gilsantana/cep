@@ -81,8 +81,8 @@ $(document).ready(function() {
 			<h2 class="head-alt-white"><%= @control.nome %></h2>
 			<!-- the tabs -->
 			<ul class="tabs">
-				<li><a href="#" class="current">Média</a></li>
-				<li><a href="#">Amplitude</a></li>
+				<li><%= link_to "Média", variaveis_tipo_1_media_control_path(@control), :class=>:current %></li>
+				<li><%= link_to "Amplitude", variaveis_tipo_1_amplitude_control_path(@control) %></li>
 			</ul>
 			<div class="innercontent">
 				<!-- tab "panes" -->
