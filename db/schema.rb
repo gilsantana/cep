@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101017115608) do
+ActiveRecord::Schema.define(:version => 20101017123628) do
 
   create_table "controls", :force => true do |t|
     t.string   "nome"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20101017115608) do
     t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "first_column_is_date"
   end
 
   create_table "users", :force => true do |t|
