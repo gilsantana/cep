@@ -6,7 +6,7 @@ class SamplesController < ApplicationController
   end
   
   def index
-    @samples = @control.samples.all
+    @samples = @control.samples.order("tempo ASC").all
 
     respond_to do |format|
       format.html # index.html.erb

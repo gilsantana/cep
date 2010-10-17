@@ -3,6 +3,10 @@ Qualidade::Application.routes.draw do
   resources :items
 
   resources :controls do
+    member do 
+      get 'variaveis_tipo_1_media'
+      get 'variaveis_tipo_1_amplitude'
+    end
     resources :sheets
     resources :samples
   end

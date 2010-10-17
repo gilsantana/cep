@@ -8,56 +8,58 @@ class Sample < ActiveRecord::Base
   has_many :limit_calculations, :dependent=>:destroy
 
   
-  def calcular
+  def calcular_media
     self.media = self.items.average(:valor)
     self.amplitude = self.items.maximum(:valor)-self.items.minimum(:valor)
     self.save
     
     # calcular os limites para Tipo 1 do Controle por Variáveis
-    @lc = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_media}).limit(1)
-    unless @lc==nil
-      @lc = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_media})
+    @lc_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_media}).limit(1).last
+    if @lc_media==nil
+      @lc_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_media})
     end
-    @lc.valor = self.media
-    @lc.save
+    @lc_media.valor = self.control.media_das_medias
+    @lc_media.save
     
+  end
+  
+  def calcular_limites
     @constant = Constant.find_last_by_tamanho(self.items.size)
-    @lcs = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_media}).limit(1)
-    unless @lc==nil
-      @lcs = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_media})
+    @lcs_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_media}).limit(1).last
+    if @lcs_media==nil
+      @lcs_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_media})
     end
-    @lcs.valor = self.media+@constant.a2*self.amplitude
-    @lcs.save
+    @lcs_media.valor = self.control.media_das_medias+@constant.a2*self.control.media_das_amplitudes
+    @lcs_media.save
     
-    @lci = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_media}).limit(1)
-    unless @lc==nil
-      @lci = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_media})
+    @lci_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_media}).limit(1).last
+    if @lci_media==nil
+      @lci_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_media})
     end
-    @lci.valor = self.media+@constant.a2*self.amplitude
-    @lci.save
+    @lci_media.valor = self.control.media_das_medias-@constant.a2*self.control.media_das_amplitudes
+    @lci_media.save
     
     
-    @lc = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude}).limit(1)
-    unless @lc==nil
-      @lc = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude})
+    @lc_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude}).limit(1).last
+    if @lc_amplitude==nil
+      @lc_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude})
     end
-    @lc.valor = self.amplitude
-    @lc.save
-    
-    @constant = Constant.find_last_by_tamanho(self.items.size)
-    @lcs = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude}).limit(1)
-    unless @lc==nil
-      @lcs = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude})
+    @lc_amplitude.valor = self.amplitude
+    @lc_amplitude.save
+
+    @lcs_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_amplitude}).limit(1).last
+    if @lcs_amplitude==nil
+      @lcs_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_amplitude})
     end
-    @lcs.valor = @constant.d4*self.amplitude
-    @lcs.save
+    @lcs_amplitude.valor = @constant.d4*self.amplitude
+    @lcs_amplitude.save
     
-    @lci = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude}).limit(1)
-    unless @lc==nil
-      @lci = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude})
+    @lci_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_amplitude}).limit(1).last
+    if @lci_amplitude==nil
+      @lci_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_amplitude})
     end
-    @lci.valor = @constant.d3*self.amplitude
-    @lci.save
+    @lci_amplitude.valor = @constant.d3*self.amplitude
+    @lci_amplitude.save
     #--------------------------
     
   end

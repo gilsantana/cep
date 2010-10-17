@@ -62,6 +62,17 @@ class SheetsController < ApplicationController
             @item.save
           end
         end
+        
+        @control.samples.each do |amostra|
+          amostra.calcular_media
+        end
+         @control.samples.each do |amostra|
+            amostra.calcular_media
+          end
+        
+        @control.samples.each do |amostra|
+          amostra.calcular_limites
+        end
 
         format.html { redirect_to(control_samples_path(@sheet.control), :notice => 'Planilha Importada com sucesso.') }
         format.xml  { render :xml => @sheet, :status => :created, :location => @sheet }
