@@ -1,0 +1,26 @@
+<table class="full">
+	<thead>
+		<tr class="alt">
+			<th>Amostra</th>
+			<th>Data</th>
+			<th></th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<% @controls.each do |controle| %>
+		<tr class="alt">
+			<td><%= link_to controle.id, controle %></td>
+			<td><%= l controle.created_at %></td>
+			<td>
+			<!-- Icons --><a href="#" title="Edit">
+			<img alt="Edit" src="images/icons/edit.png"></a>
+			<a href="#" title="Delete">
+			<img alt="Delete" src="images/icons/delete.png"></a>
+			<a href="#" title="Add">
+			<img alt="Add" src="images/icons/add.png"></a>
+			</td>
+		</tr>
+		<% end %>
+		</tbody>
+</table>
