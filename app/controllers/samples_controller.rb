@@ -14,8 +14,6 @@ class SamplesController < ApplicationController
     end
   end
 
-  # GET /samples/1
-  # GET /samples/1.xml
   def show
     @sample = Sample.find(params[:id])
 
@@ -25,8 +23,6 @@ class SamplesController < ApplicationController
     end
   end
 
-  # GET /samples/new
-  # GET /samples/new.xml
   def new
     @sample = @control.samples.build  
 
@@ -36,13 +32,10 @@ class SamplesController < ApplicationController
     end
   end
 
-  # GET /samples/1/edit
   def edit
     @sample = Sample.find(params[:id])
   end
 
-  # POST /samples
-  # POST /samples.xml
   def create
     @sample = Sample.new(params[:sample])
 
@@ -57,8 +50,6 @@ class SamplesController < ApplicationController
     end
   end
 
-  # PUT /samples/1
-  # PUT /samples/1.xml
   def update
     @sample = Sample.find(params[:id])
 
@@ -73,8 +64,6 @@ class SamplesController < ApplicationController
     end
   end
 
-  # DELETE /samples/1
-  # DELETE /samples/1.xml
   def destroy
     @sample = Sample.find(params[:id])
     @sample.destroy
