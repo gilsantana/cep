@@ -1,5 +1,32 @@
-<h1>New sample</h1>
+<%= form_for([@control, @sample]) do |f| %>
+<% if @sample.errors.any? %>
+<div class="notification errors">
+	<%= pluralize(@sample.errors.count, "erro impediu", "erros impediram") %> o registro de ser salvo:
+	<p class="collapsible collapsible-heading"><a href="#" class="collapsible-heading-toggle"><span class="collapsible-heading-status">Ocultar </span>Mostrar detalhes!</a></p>
+	<ul class="collapsible-content" aria-hidden="false">
+		<% @sample.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
 
-<%= render 'form' %>
 
-<%= link_to 'Back', samples_path %>
+
+<div class="innerdiv"> 
+	<!-- Tabs --> 
+	<h2 class="head-alt-white">Controles</h2> 
+	<div class="innercontent"> 
+		<!-- tab "panes" --> 
+		<div class="panes"> 
+			<div> 
+				<fieldset> 
+					<legend>Novo Controle</legend> 
+					<%= render "form", {:f=>f} %>
+					<input class="button black bigger" type="submit" value="Salvar">
+				</fieldset> 
+			</div> 
+		</div> 
+	</div> 
+</div> 
+<% end %>

@@ -1,8 +1,11 @@
 class SamplesController < ApplicationController
-  # GET /samples
-  # GET /samples.xml
-  def index
+  before_filter :find_control
+  
+  def find_control
     @control = Control.find(params[:control_id])
+  end
+  
+  def index
     @samples = @control.samples.all
 
     respond_to do |format|
@@ -25,7 +28,7 @@ class SamplesController < ApplicationController
   # GET /samples/new
   # GET /samples/new.xml
   def new
-    @sample = Sample.new
+    @sample = @control.samples.build  
 
     respond_to do |format|
       format.html # new.html.erb
