@@ -6,7 +6,8 @@
 			<th>Ítens</th>
 			<th>Média</th>
 			<th>Amplitude</th>
-			<th >Por Variáveis<th>
+			<th>Desvio Padrão</th>
+			<th>Mediana</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -19,6 +20,8 @@
 			<td><%= amostra.items.size %></td>
 			<td><%= amostra.media.round(2) %></td>
 			<td><%= amostra.amplitude.round(2) %></td>
+			<td><%= amostra.desvio_padrao.round(2) %></td>
+			<td><%= amostra.mediana.round(2) %></td>
 			<td>
 			<!-- Icons -->
 			<%= link_to image_tag('icons/edit.png'), edit_control_sample_path(@control, amostra)%>
