@@ -6,7 +6,9 @@ SimpleNavigation::Configuration.run do |navigation|
         controles.item :controls, @control.nome, @control do |controle|
           controle.item :controls, "Editar", edit_control_path(@control)
           
-          controle.item :samples, "Amostras", control_samples_path(@control)
+          controle.item :samples, "Amostras", control_samples_path(@control) do |amostra|
+            amostra.item :new, "Nova Amostra", new_control_sample_path(@contro)
+          end
           
         end
       end

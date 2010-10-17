@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Control:</b>
+  <%= @sheet.control %>
+</p>
+
+<p>
+  <b>First column is label:</b>
+  <%= @sheet.first_column_is_label %>
+</p>
+
+<p>
+  <b>Firs line is label:</b>
+  <%= @sheet.firs_line_is_label %>
+</p>
+
+<p>
+  <b>Initial time:</b>
+  <%= @sheet.initial_time %>
+</p>
+
+<p>
+  <b>Increment value:</b>
+  <%= @sheet.increment_value %>
+</p>
+
+<p>
+  <b>Incremente type:</b>
+  <%= @sheet.incremente_type %>
+</p>
+
+<p>
+  <b>File file name:</b>
+  <%= @sheet.file_file_name %>
+</p>
+
+<p>
+  <b>File content type:</b>
+  <%= @sheet.file_content_type %>
+</p>
+
+<p>
+  <b>File file size:</b>
+  <%= @sheet.file_file_size %>
+</p>
+
+<p>
+  <b>File updated at:</b>
+  <%= @sheet.file_updated_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_sheet_path(@sheet) %> |
+<%= link_to 'Back', sheets_path %>

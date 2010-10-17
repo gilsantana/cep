@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  control: 
+  first_column_is_label: false
+  firs_line_is_label: 
+  initial_time: 2010-10-17 08:56:08
+  increment_value: 1.5
+  incremente_type: MyString
+  file_file_name: MyString
+  file_content_type: MyString
+  file_file_size: 1
+  file_updated_at: 2010-10-17 08:56:08
+
+two:
+  control: 
+  first_column_is_label: false
+  firs_line_is_label: 
+  initial_time: 2010-10-17 08:56:08
+  increment_value: 1.5
+  incremente_type: MyString
+  file_file_name: MyString
+  file_content_type: MyString
+  file_file_size: 1
+  file_updated_at: 2010-10-17 08:56:08
