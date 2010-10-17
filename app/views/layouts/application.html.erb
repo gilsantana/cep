@@ -46,12 +46,7 @@
 		<!-- end login --> 
 		<div id="nav"> 
 			<ul class="sf-menu sf-navbar"> 
-				<li><a id="dashboard" href="#a">Principal</a> 
-				<ul> 
-					<li><a href="#">dashboard with no submenu, this is description!</a> 
-					</li> 
-				</ul> 
-				</li> 
+				<li><%= link_to "Principal", root_path, :id=>"dashboard" %></li> 
 				<li class="current"><a id="articles" href="#a">CEP's</a> 
 				<ul> 
 					<li class="current"><%= link_to "Novo Controle", new_control_path %></li> 
