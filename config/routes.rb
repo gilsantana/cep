@@ -6,6 +6,10 @@ Qualidade::Application.routes.draw do
     member do 
       get 'variaveis_tipo_1_media'
       get 'variaveis_tipo_1_amplitude'
+      get 'variaveis_tipo_2_media'
+      get 'variaveis_tipo_2_desvio_padrao'
+      get 'variaveis_tipo_3_mediana'
+      get 'variaveis_tipo_3_amplitude'
     end
     resources :sheets
     resources :samples

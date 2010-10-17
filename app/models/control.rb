@@ -23,5 +23,13 @@ class Control < ActiveRecord::Base
     self.samples.average(:amplitude)
   end
   
+  def media_dos_desvios
+    self.samples.average(:desvio_padrao)
+  end
+  
+  def media_das_medianas
+    self.samples.average(:mediana)
+  end
+  
   
 end

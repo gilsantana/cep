@@ -1,0 +1,100 @@
+<script>
+
+
+
+
+var grafico;
+$(document).ready(function() {
+   grafico = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         defaultSeriesType: 'line',
+         marginRight: 130,
+         marginBottom: 25
+      },
+      title: {
+         text: 'Controle Estatístico de Processo - Controle por Variáveis',
+         x: -20 //center
+      },
+      subtitle: {
+         text: 'Amplitude',
+         x: -20
+      },
+      xAxis: {
+         categories: [<%= (1..(@lc_amplitude.size+1)).to_a.join(",") %>]
+      },
+      yAxis: {
+         title: {
+            text: 'Valor'
+         },
+         plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+         }]
+
+      },
+      tooltip: {
+         formatter: function() {
+                   return '<b>'+ this.series.name +'</b><br/>'+
+               this.x +': '+ this.y;
+         }
+      },
+      legend: {
+         layout: 'vertical',
+         align: 'right',
+         verticalAlign: 'top',
+         x: -10,
+         y: 100,
+         borderWidth: 0
+      },
+      series: [{
+         name: 'LC',
+         data: [<%= Array.new(@lc_amplitude.size){|i| @lc_amplitude.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+      },{
+	     name: 'LCI',
+	     data: [<%= Array.new(@lci_amplitude.size){|i| @lci_amplitude.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+	  },{
+		 name: 'LCS',
+		 data: [<%= Array.new(@lcs_amplitude.size){|i| @lcs_amplitude.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+	  }	,{
+			 name: 'Amplitude',
+			 data: [<%= Array.new(@control.samples.size){|i| @control.samples.order("tempo ASC")[i].amplitude.round(2) }.join(",") %>]
+		  }]
+   });
+
+
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="innerdiv">
+			<!-- Tabs -->
+			<h2 class="head-alt-white"><%= @control.nome %></h2>
+			<!-- the tabs -->
+			<ul class="tabs">
+				<li><%= link_to "Mediana", variaveis_tipo_3_mediana_control_path(@control) %></li>
+				<li><%= link_to "Amplitude", variaveis_tipo_3_amplitude_control_path(@control), :class=>:current %></li>
+			</ul>
+			<div class="innercontent">
+				<!-- tab "panes" -->
+				<div class="panes">
+					<div style="display: none; " id="segundo_container">
+						
+					</div>
+					<div style="display: block; " id="container">
+						
+					</div>
+				</div>
+			</div>
+		</div>
