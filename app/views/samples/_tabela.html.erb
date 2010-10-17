@@ -7,18 +7,14 @@
 		</tr>
 	</thead>
 	
-	<tbody class="tooltip-enabled">
-		<% @samples.each do |amostra| %>
+	<tbody>
+		<% @samples.each_with_index do |amostra, i| %>
 		<tr class="alt">
-			<td><%= amostra.id %></td>
-			<td><%= l amostra.tempo %></td>
+			<td><%= i+1 %></td>
+			<td><%= l amostra.tempo, :format=>:short %></td>
 			<td>
 			<!-- Icons -->
-			<a href="#" title="Edit"><img alt="Edit" src="images/icons/edit.png"></a>
-			<a href="#" title="Delete">
-			<img alt="Delete" src="images/icons/delete.png"></a>
-			<a href="#" title="Add">
-			<img alt="Add" src="images/icons/add.png"></a>
+			<%= link_to image_tag('icons/edit.png'), edit_control_sample_path(@control, amostra)%>
 			</td>
 		</tr>
 		<% end %>
