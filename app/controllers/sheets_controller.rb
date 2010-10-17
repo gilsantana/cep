@@ -1,7 +1,12 @@
 class SheetsController < ApplicationController
+  before_filter :find_control
+  
+  def find_control
+    @control = Control.find(params[:control_id])
+  end
 
   def index
-    @sheets = Sheet.all
+    @sheets = @control.sheets.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,7 +24,7 @@ class SheetsController < ApplicationController
   end
 
   def new
-    @sheet = Sheet.new
+    @sheet = @control.sheets.build
 
     respond_to do |format|
       format.html # new.html.erb

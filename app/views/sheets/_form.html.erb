@@ -1,57 +1,11 @@
-<%= form_for(@sheet) do |f| %>
-  <% if @sheet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sheet.errors.count, "error") %> prohibited this sheet from being saved:</h2>
 
-      <ul>
-      <% @sheet.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= f.input :first_column_is_label %>
+<%= f.input :firs_line_is_label %>
 
-  <div class="field">
-    <%= f.label :control %><br />
-    <%= f.text_field :control %>
-  </div>
-  <div class="field">
-    <%= f.label :first_column_is_label %><br />
-    <%= f.check_box :first_column_is_label %>
-  </div>
-  <div class="field">
-    <%= f.label :firs_line_is_label %><br />
-    <%= f.text_field :firs_line_is_label %>
-  </div>
-  <div class="field">
-    <%= f.label :initial_time %><br />
-    <%= f.datetime_select :initial_time %>
-  </div>
-  <div class="field">
-    <%= f.label :increment_value %><br />
-    <%= f.text_field :increment_value %>
-  </div>
-  <div class="field">
-    <%= f.label :incremente_type %><br />
-    <%= f.text_field :incremente_type %>
-  </div>
-  <div class="field">
-    <%= f.label :file_file_name %><br />
-    <%= f.text_field :file_file_name %>
-  </div>
-  <div class="field">
-    <%= f.label :file_content_type %><br />
-    <%= f.text_field :file_content_type %>
-  </div>
-  <div class="field">
-    <%= f.label :file_file_size %><br />
-    <%= f.text_field :file_file_size %>
-  </div>
-  <div class="field">
-    <%= f.label :file_updated_at %><br />
-    <%= f.datetime_select :file_updated_at %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<%= f.input :initial_time %>
+<%= f.input :increment_value %>
+
+<%= f.input :incremente_type %>
+<%= f.input :file %>
+
+
