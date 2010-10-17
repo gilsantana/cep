@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101017164834) do
+ActiveRecord::Schema.define(:version => 20101017201647) do
 
   create_table "constants", :force => true do |t|
     t.integer  "tamanho"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20101017164834) do
     t.datetime "updated_at"
     t.float    "media"
     t.float    "amplitude"
+    t.float    "desvio_padrao"
   end
 
   create_table "sheets", :force => true do |t|

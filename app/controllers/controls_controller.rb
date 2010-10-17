@@ -73,27 +73,17 @@ class ControlsController < ApplicationController
     @control = Control.find(params[:id])
     
     @lc_media = @control.indice :lc, :variaveis, :tipo1, :media
-    @lc_amplitude = @control.indice :lc, :variaveis, :tipo1, :amplitude
-    
     @lci_media = @control.indice :lci, :variaveis, :tipo1, :media
-    @lci_amplitude = @control.indice :lci, :variaveis, :tipo1, :amplitude
-    
     @lcs_media = @control.indice :lcs, :variaveis, :tipo1, :media
-    @lcs_amplitude = @control.indice :lcs, :variaveis, :tipo1, :amplitude
     
     render "controls/variaveis/tipo1/media"
   end
   
   def variaveis_tipo_1_amplitude
     @control = Control.find(params[:id])
-    
-    @lc_media = @control.indice :lc, :variaveis, :tipo1, :media
+
     @lc_amplitude = @control.indice :lc, :variaveis, :tipo1, :amplitude
-    
-    @lci_media = @control.indice :lci, :variaveis, :tipo1, :media
     @lci_amplitude = @control.indice :lci, :variaveis, :tipo1, :amplitude
-    
-    @lcs_media = @control.indice :lcs, :variaveis, :tipo1, :media
     @lcs_amplitude = @control.indice :lcs, :variaveis, :tipo1, :amplitude
     
     render "controls/variaveis/tipo1/amplitude"
