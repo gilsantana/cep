@@ -95,6 +95,10 @@ class SheetsController < ApplicationController
             @sample.itens_defeituosos = s.cell(linha, 2+@primeira_coluna)
             @sample.save
           end
+          @control.samples.each do |amostra|
+            amostra.calcular_carta_p
+            amostra.calcular_carta_np
+          end
         else
 
           (s.first_row..s.last_row).each do |linha|

@@ -4,6 +4,7 @@
 		<div class="innercontent clear"> 
 			<h4>Análises</h4> 
 			<ul id="comments"> 
+				<% if @control.items.size>0 %>
 				<li>
 					<%= image_tag "icons/stats.png"%>
 					<span class="sender"><%= link_to "Controle por Variável", variaveis_tipo_1_media_control_path(@control)%></span> 
@@ -27,7 +28,7 @@
 					<span class="date"><%= link_to "Mediana e Amplitude", variaveis_tipo_3_mediana_control_path(@control)%></span> </a> 
 					<br class="clear"/> 
 				</li>
-				
+				<% else %>
 				<li>
 					<%= image_tag "icons/stats.png"%>
 					<span class="sender"><%= link_to "Controle por Atributos", atributos_p_control_path(@control)%></span> 
@@ -51,7 +52,7 @@
 					<span class="date"><%= link_to "Não-conformidades por unidade", atributos_c_control_path(@control)%></span> </a> 
 					<br class="clear"/> 
 				</li>
-				
+				<% end %>
 			</ul> 
 		</div> 
 	</div> 

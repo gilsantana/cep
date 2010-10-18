@@ -175,7 +175,7 @@ class Sample < ActiveRecord::Base
     if @lci==nil
       @lci = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:p, :calculo=>:lci})
     end
-    @lci.valor = @lc.valor-3*@calculo
+    @lci.valor = (@lc.valor-3*@calculo)<=0 ? 0 : (@lc.valor-3*@calculo)
     @lci.save
     
   end
@@ -201,7 +201,7 @@ class Sample < ActiveRecord::Base
     if @lci==nil
       @lci = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:np, :calculo=>:lci})
     end
-    @lci.valor = @lc.valor-3*@calculo
+    @lci.valor = (@lc.valor-3*@calculo)<=0 ? 0 : (@lc.valor-3*@calculo)
     @lci.save
     
   end
@@ -230,7 +230,7 @@ class Sample < ActiveRecord::Base
     if @lci==nil
       @lci = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:c, :calculo=>:lci})
     end
-    @lci.valor = @lc.valor-3*@calculo
+    @lci.valor = (@lc.valor-3*@calculo)<=0 ? 0 : (@lc.valor-3*@calculo)
     @lci.save
     
   end
