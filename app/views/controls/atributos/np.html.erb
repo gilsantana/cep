@@ -50,16 +50,16 @@ $(document).ready(function() {
       },
       series: [{
          name: 'LC',
-         data: [<%= Array.new(@lc.size){|i| @lc.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+         data: <%= formatar_dados @lc, :valor %>
       },{
 	     name: 'LCI',
-	     data: [<%= Array.new(@lci.size){|i| @lci.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+	     data: <%= formatar_dados @lci, :valor %>
 	  },{
 		 name: 'LCS',
-		 data: [<%= Array.new(@lcs.size){|i| @lcs.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+		 data: <%= formatar_dados @lcs, :valor %>
 	  }	,{
-			 name: 'Não-conformidades',
-			 data: [<%= Array.new(@control.samples.size){|i| (@control.samples.order("tempo ASC")[i].itens_defeituosos.round(2)) }.join(",") %>]
+			 name: 'Não conformes',
+			 data: <%= formatar_dados @control.samples, :itens_defeituosos, @lcs, :valor %>
 		  }]
    });
 

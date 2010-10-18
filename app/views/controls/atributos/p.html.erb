@@ -58,7 +58,7 @@ $(document).ready(function() {
 		 name: 'LCS',
 		 data: [<%= Array.new(@lcs.size){|i| @lcs.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
 	  }	,{
-			 name: 'Não-conformidades',
+			 name: 'Não-conformes',
 			 data: [<%= Array.new(@control.samples.size){|i| (@control.samples.order("tempo ASC")[i].itens_defeituosos/@control.samples.order("tempo ASC")[i].tamanho_da_amostra).round(2) }.join(",") %>]
 		  }]
    });
