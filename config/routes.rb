@@ -10,6 +10,8 @@ Qualidade::Application.routes.draw do
       get 'variaveis_tipo_2_desvio_padrao'
       get 'variaveis_tipo_3_mediana'
       get 'variaveis_tipo_3_amplitude'
+      get 'atributos_p'
+      get 'atributos_np'
     end
     resources :sheets
     resources :samples

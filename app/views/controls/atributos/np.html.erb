@@ -1,0 +1,82 @@
+<script>
+
+
+
+
+var grafico;
+$(document).ready(function() {
+   grafico = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         defaultSeriesType: 'line',
+         marginRight: 130,
+         marginBottom: 25
+      },
+      title: {
+         text: 'Controle Estatístico de Processo - Controle por Atributos',
+         x: -20 //center
+      },
+      subtitle: {
+         text: 'Carta np',
+         x: -20
+      },
+      xAxis: {
+         categories: [<%= (1..(@lc.size+1)).to_a.join(",") %>]
+      },
+      yAxis: {
+         title: {
+            text: 'Valor'
+         },
+         plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+         }]
+
+      },
+      tooltip: {
+         formatter: function() {
+                   return '<b>'+ this.series.name +'</b><br/>'+
+               this.x +': '+ this.y;
+         }
+      },
+      legend: {
+         layout: 'vertical',
+         align: 'right',
+         verticalAlign: 'top',
+         x: -10,
+         y: 100,
+         borderWidth: 0
+      },
+      series: [{
+         name: 'LC',
+         data: [<%= Array.new(@lc.size){|i| @lc.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+      },{
+	     name: 'LCI',
+	     data: [<%= Array.new(@lci.size){|i| @lci.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+	  },{
+		 name: 'LCS',
+		 data: [<%= Array.new(@lcs.size){|i| @lcs.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+	  }	,{
+			 name: 'Não-conformidades',
+			 data: [<%= Array.new(@control.samples.size){|i| (@control.samples.order("tempo ASC")[i].itens_defeituosos.round(2)) }.join(",") %>]
+		  }]
+   });
+
+
+});
+</script>
+
+
+<div class="innerdiv">
+			<!-- Tabs -->
+			<h2 class="head-alt-white"><%= @control.nome %></h2>
+			<!-- the tabs -->
+
+			<div class="innercontent">
+				<!-- tab "panes" -->
+				<div class="panes" id="container">
+					
+				</div>
+			</div>
+		</div>

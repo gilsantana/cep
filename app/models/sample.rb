@@ -16,8 +16,6 @@ class Sample < ActiveRecord::Base
     self.save
 
     # calcular os limites para Tipo 1 do Controle por Variáveis
-
-
   end
 
   def calcular_limites
@@ -153,6 +151,59 @@ class Sample < ActiveRecord::Base
       median = items[n].valor
     end
     return median
+  end
+  
+  
+  def calcular_carta_p
+    @lc = self.limit_calculations.where({:categoria=>:atributos, :tipo=>:p, :calculo=>:lc}).limit(1).last
+    if @lc==nil
+      @lc = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:p, :calculo=>:lc})
+    end
+    @lc.valor = self.control.fracao_de_nao_conformes
+    @lc.save
+    
+    @calculo = Math.sqrt((self.control.fracao_de_nao_conformes*(1-self.control.fracao_de_nao_conformes))/self.tamanho_da_amostra)
+    
+    @lcs = self.limit_calculations.where({:categoria=>:atributos, :tipo=>:p, :calculo=>:lcs}).limit(1).last
+    if @lcs==nil
+      @lcs = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:p, :calculo=>:lcs})
+    end
+    @lcs.valor = @lc.valor+3*@calculo
+    @lcs.save
+    
+    @lci = self.limit_calculations.where({:categoria=>:atributos, :tipo=>:p, :calculo=>:lci}).limit(1).last
+    if @lci==nil
+      @lci = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:p, :calculo=>:lci})
+    end
+    @lci.valor = @lc.valor-3*@calculo
+    @lci.save
+    
+  end
+  
+  def calcular_carta_np
+    @lc = self.limit_calculations.where({:categoria=>:atributos, :tipo=>:np, :calculo=>:lc}).limit(1).last
+    if @lc==nil
+      @lc = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:np, :calculo=>:lc})
+    end
+    @lc.valor = self.control.media_de_itens_defeituosos
+    @lc.save
+    
+    @calculo = self.control.desvio_padrao_de_nao_conformidades
+    
+    @lcs = self.limit_calculations.where({:categoria=>:atributos, :tipo=>:np, :calculo=>:lcs}).limit(1).last
+    if @lcs==nil
+      @lcs = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:np, :calculo=>:lcs})
+    end
+    @lcs.valor = @lc.valor+3*@calculo
+    @lcs.save
+    
+    @lci = self.limit_calculations.where({:categoria=>:atributos, :tipo=>:np, :calculo=>:lci}).limit(1).last
+    if @lci==nil
+      @lci = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:np, :calculo=>:lci})
+    end
+    @lci.valor = @lc.valor-3*@calculo
+    @lci.save
+    
   end
 
 end

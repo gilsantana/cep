@@ -128,4 +128,24 @@ class ControlsController < ApplicationController
     render "controls/variaveis/tipo3/amplitude"
   end
   
+  def atributos_p
+    @control = Control.find(params[:id])
+
+    @lc = @control.indice_por_atributo :lc, :atributos, :p
+    @lci = @control.indice_por_atributo :lci, :atributos, :p
+    @lcs = @control.indice_por_atributo :lcs, :atributos, :p
+    
+    render "controls/atributos/p"
+  end
+  
+  def atributos_np
+    @control = Control.find(params[:id])
+
+    @lc = @control.indice_por_atributo :lc, :atributos, :np
+    @lci = @control.indice_por_atributo :lci, :atributos, :np
+    @lcs = @control.indice_por_atributo :lcs, :atributos, :np
+    
+    render "controls/atributos/np"
+  end
+  
 end

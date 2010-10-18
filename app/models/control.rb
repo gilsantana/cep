@@ -16,6 +16,10 @@ class Control < ActiveRecord::Base
     self.limit_calculations.where({:categoria=>categoria, :tipo=>tipo, :calculo=>"#{limite}_of_#{calculo}"})
   end
   
+  def indice_por_atributo limite, categoria, tipo
+    self.limit_calculations.where({:categoria=>categoria, :tipo=>tipo, :calculo=>limite})
+  end
+  
   def media_das_medias
     self.samples.average(:media)
   end
@@ -32,5 +36,16 @@ class Control < ActiveRecord::Base
     self.samples.average(:mediana)
   end
   
+  def fracao_de_nao_conformes
+    self.samples.sum(:itens_defeituosos)/self.samples.sum(:tamanho_da_amostra)
+  end
+  
+  def media_de_itens_defeituosos
+    self.samples.average(:itens_defeituosos)
+  end
+  
+  def desvio_padrao_de_nao_conformidades
+    self.samples.select("stddev(itens_defeituosos) as desvio")[0].desvio.to_f
+  end
   
 end

@@ -3,11 +3,6 @@
 		<tr class="alt">
 			<th>Amostra</th>
 			<th>Data</th>
-			<th>Ítens</th>
-			<th>Média</th>
-			<th>Amplitude</th>
-			<th>Desvio Padrão</th>
-			<th>Mediana</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -17,11 +12,6 @@
 		<tr class="<%= cycle('alt','')%>">
 			<td><%= i+1 %></td>
 			<td><%= l amostra.tempo, :format=>:short %></td>
-			<td><%= amostra.items.size %></td>
-			<td><%= amostra.media.round(2) %></td>
-			<td><%= amostra.amplitude.round(2) %></td>
-			<td><%= amostra.desvio_padrao.round(2) %></td>
-			<td><%= amostra.mediana.round(2) %></td>
 			<td>
 			<!-- Icons -->
 			<%= link_to image_tag('icons/edit.png'), edit_control_sample_path(@control, amostra)%>

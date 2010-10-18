@@ -44,35 +44,66 @@ class SheetsController < ApplicationController
 
         s = Openoffice.new(@sheet.arquivo.path)
         s.default_sheet = s.sheets.first
-        (s.first_row..s.last_row).each do |linha|
-          @sample = @control.samples.build
-          if @sheet.first_column_is_date==false
-            if linha==1
-              @sample.tempo = @sheet.initial_time
+        
+        @primeira_coluna = @sheet.first_column_is_date==false ? 0 : 1
+        #caso seja por variavel
+        if (s.last_column-@primeira_coluna)>2
+          (s.first_row..s.last_row).each do |linha|
+            @sample = @control.samples.build
+            if @sheet.first_column_is_date==false
+              if linha==1
+                @sample.tempo = @sheet.initial_time
+              else
+                @sample.tempo = @sheet.initial_time+((linha-1)*@sheet.increment_value).send(@sheet.incremente_type)
+              end
             else
-              @sample.tempo = @sheet.initial_time+((linha-1)*@sheet.increment_value).send(@sheet.incremente_type)
+              @sample.tempo = s.cell(linha, 1)
             end
-          else
-            @sample.tempo = s.cell(linha, 1)
+            @sample.save
+            (s.first_column..s.last_column).each do |coluna|
+              @item = @sample.items.build
+              @item.valor = s.cell(linha,coluna)
+              @item.save
+            end
           end
-          @sample.save
-          (s.first_column..s.last_column).each do |coluna|
-            @item = @sample.items.build
-            @item.valor = s.cell(linha,coluna)
-            @item.save
+
+          @control.samples.each do |amostra|
+            amostra.calcular_media
           end
-        end
+          @control.samples.each do |amostra|
+            amostra.calcular_media
+          end
 
-        @control.samples.each do |amostra|
-          amostra.calcular_media
+          @control.samples.each do |amostra|
+            amostra.calcular_limites
+          end
+          # END
+        else
+          
+          (s.first_row..s.last_row).each do |linha|
+            @sample = @control.samples.build
+            if @sheet.first_column_is_date==false
+              if linha==1
+                @sample.tempo = @sheet.initial_time
+              else
+                @sample.tempo = @sheet.initial_time+((linha-1)*@sheet.increment_value).send(@sheet.incremente_type)
+              end
+            else
+              @sample.tempo = s.cell(linha, 1)
+            end
+            @sample.tamanho_da_amostra = s.cell(linha, 1+@primeira_coluna)
+            @sample.itens_defeituosos = s.cell(linha, 2+@primeira_coluna)
+            @sample.save
+          end
+          
+          @control.samples.each do |amostra|
+            amostra.calcular_carta_p
+            amostra.calcular_carta_np
+          end
+          
+          
         end
-        @control.samples.each do |amostra|
-          amostra.calcular_media
-        end
-
-        @control.samples.each do |amostra|
-          amostra.calcular_limites
-        end
+         
 
         format.html { redirect_to(control_samples_path(@sheet.control), :notice => 'Planilha Importada com sucesso.') }
         format.xml  { render :xml => @sheet, :status => :created, :location => @sheet }
