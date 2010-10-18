@@ -46,22 +46,21 @@ $(document).ready(function() {
       },
       series: [{
          name: 'LC',
-         data: [<%= Array.new(@lc_media.size){|i| @lc_media.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+         data: <%= formatar_dados @lc_media, :valor %>
       },{
 	     name: 'LCI',
-	     data: [<%= Array.new(@lci_media.size){|i| @lci_media.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+	     data: <%= formatar_dados @lci_media, :valor %>
 	  },{
 		 name: 'LCS',
-		 data: [<%= Array.new(@lcs_media.size){|i| @lcs_media.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+		 data: <%= formatar_dados @lcs_media, :valor %>
 	  }	,{
-			 name: 'Média',
-			 data: [<%= Array.new(@control.samples.size){|i| @control.samples.order("tempo ASC")[i].media.round(2) }.join(",") %>]
+			 name: 'Média', 
+			 data: <%= formatar_dados @control.samples, :media, @lcs_media, :valor %>
 		  }]
    });
-   
-   
-});
 
+
+});
 
 </script>
 

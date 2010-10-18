@@ -50,16 +50,16 @@ $(document).ready(function() {
       },
       series: [{
          name: 'LC',
-         data: [<%= Array.new(@lc_amplitude.size){|i| @lc_amplitude.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+         data: <%= formatar_dados @lc_amplitude, :valor %>
       },{
 	     name: 'LCI',
-	     data: [<%= Array.new(@lci_amplitude.size){|i| @lci_amplitude.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+	     data: <%= formatar_dados @lci_amplitude, :valor %>
 	  },{
 		 name: 'LCS',
-		 data: [<%= Array.new(@lcs_amplitude.size){|i| @lcs_amplitude.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+		 data: <%= formatar_dados @lcs_amplitude, :valor %>
 	  }	,{
 			 name: 'Desvio Padrão',
-			 data: [<%= Array.new(@control.samples.size){|i| @control.samples.order("tempo ASC")[i].desvio_padrao.round(2) }.join(",") %>]
+			 data: <%= formatar_dados @control.samples, :desvio_padrao, @lcs_amplitude, :valor %>
 		  }]
    });
 

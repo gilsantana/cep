@@ -46,20 +46,20 @@ $(document).ready(function() {
       },
       series: [{
          name: 'LC',
-         data: [<%= Array.new(@lc_mediana.size){|i| @lc_mediana.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+         data: <%= formatar_dados @lc_mediana, :valor %>
       },{
 	     name: 'LCI',
-	     data: [<%= Array.new(@lci_mediana.size){|i| @lci_mediana.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+	     data: <%= formatar_dados @lci_mediana, :valor %>
 	  },{
 		 name: 'LCS',
-		 data: [<%= Array.new(@lcs_mediana.size){|i| @lcs_mediana.order("tempo ASC")[i].valor.round(2) }.join(",") %>]
+		 data: <%= formatar_dados @lcs_mediana, :valor %>
 	  }	,{
-			 name: 'Mediana',
-			 data: [<%= Array.new(@control.samples.size){|i| @control.samples.order("tempo ASC")[i].mediana.round(2) }.join(",") %>]
+			 name: 'Média', 
+			 data: <%= formatar_dados @control.samples, :mediana, @lcs_mediana, :valor %>
 		  }]
    });
-   
-   
+
+
 });
 
 
