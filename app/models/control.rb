@@ -4,9 +4,10 @@ class Control < ActiveRecord::Base
   
   has_many :samples, :dependent=>:destroy
   has_many :sheets, :dependent=>:destroy
-  
   has_many :limit_calculations, :through=>:samples
   has_many :items, :through=>:samples
+  
+  belongs_to :user
   
   validates_presence_of :nome
   

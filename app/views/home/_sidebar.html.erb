@@ -5,7 +5,7 @@
 		<div class="innercontent clear"> 
 			<h4>Recentes</h4> 
 			<ul id="comments"> 
-				<% Control.order("created_at DESC").limit(3).each do |controle| %>
+				<% @controls.limit(3).each do |controle| %>
 				<li>
 					<%= image_tag "icons/database.png"%>
 					<span class="sender"><%= link_to controle.nome, controle %></span> 
@@ -16,7 +16,7 @@
 			<% end %>
 				<li class="last">
 					<%= link_to controls_path, :class=>"all-messages" do %>
-						Veja todos os controles<span class="unreaded">Total de <%= pluralize(Control.count, "controle", "controles") %>.</span>
+						Veja todos os controles<span class="unreaded">Total de <%= pluralize(@controls.count, "controle", "controles") %>.</span>
 						<% end %>
 				</li> 
 			</ul> 

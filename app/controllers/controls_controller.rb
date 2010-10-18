@@ -1,7 +1,6 @@
 class ControlsController < ApplicationController
 
   def index
-    @controls = Control.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -33,7 +32,7 @@ class ControlsController < ApplicationController
 
   def create
     @control = Control.new(params[:control])
-
+    @control.user = current_user
     respond_to do |format|
       if @control.save
         format.html { redirect_to(@control, :notice => 'Controle criado com sucesso.') }
@@ -47,7 +46,7 @@ class ControlsController < ApplicationController
 
   def update
     @control = Control.find(params[:id])
-
+    @control.user = current_user
     respond_to do |format|
       if @control.update_attributes(params[:control])
         format.html { redirect_to(@control, :notice => 'Controle atualizado com sucesso.') }
