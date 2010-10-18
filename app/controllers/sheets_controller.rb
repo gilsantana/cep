@@ -62,14 +62,14 @@ class SheetsController < ApplicationController
             @item.save
           end
         end
-        
+
         @control.samples.each do |amostra|
           amostra.calcular_media
         end
-         @control.samples.each do |amostra|
-            amostra.calcular_media
-          end
-        
+        @control.samples.each do |amostra|
+          amostra.calcular_media
+        end
+
         @control.samples.each do |amostra|
           amostra.calcular_limites
         end
