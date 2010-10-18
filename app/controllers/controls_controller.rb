@@ -131,9 +131,9 @@ class ControlsController < ApplicationController
   def atributos_p
     @control = Control.find(params[:id])
 
-    @lc = @control.indice_por_atributo :lc, :atributos, :p
-    @lci = @control.indice_por_atributo :lci, :atributos, :p
-    @lcs = @control.indice_por_atributo :lcs, :atributos, :p
+    @lc = @control.indice :lc, :atributos, :p
+    @lci = @control.indice :lci, :atributos, :p
+    @lcs = @control.indice :lcs, :atributos, :p
     
     render "controls/atributos/p"
   end
@@ -141,9 +141,9 @@ class ControlsController < ApplicationController
   def atributos_np
     @control = Control.find(params[:id])
 
-    @lc = @control.indice_por_atributo :lc, :atributos, :np
-    @lci = @control.indice_por_atributo :lci, :atributos, :np
-    @lcs = @control.indice_por_atributo :lcs, :atributos, :np
+    @lc = @control.indice :lc, :atributos, :np
+    @lci = @control.indice :lci, :atributos, :np
+    @lcs = @control.indice :lcs, :atributos, :np
     
     render "controls/atributos/np"
   end
@@ -151,9 +151,9 @@ class ControlsController < ApplicationController
   def atributos_c
     @control = Control.find(params[:id])
 
-    @lc = @control.indice_por_atributo :lc, :atributos, :c
-    @lci = @control.indice_por_atributo :lci, :atributos, :c
-    @lcs = @control.indice_por_atributo :lcs, :atributos, :c
+    @lc = @control.indice :lc, :atributos, :c
+    @lci = @control.indice :lci, :atributos, :c
+    @lcs = @control.indice :lcs, :atributos, :c
     
     render "controls/atributos/c"
   end
