@@ -12,6 +12,7 @@ Qualidade::Application.routes.draw do
       get 'variaveis_tipo_3_amplitude'
       get 'atributos_p'
       get 'atributos_np'
+      get 'atributos_c'
     end
     resources :sheets
     resources :samples

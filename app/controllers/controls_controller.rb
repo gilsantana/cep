@@ -148,4 +148,14 @@ class ControlsController < ApplicationController
     render "controls/atributos/np"
   end
   
+  def atributos_c
+    @control = Control.find(params[:id])
+
+    @lc = @control.indice_por_atributo :lc, :atributos, :c
+    @lci = @control.indice_por_atributo :lci, :atributos, :c
+    @lcs = @control.indice_por_atributo :lcs, :atributos, :c
+    
+    render "controls/atributos/c"
+  end
+  
 end

@@ -48,4 +48,8 @@ class Control < ActiveRecord::Base
     self.samples.select("stddev(itens_defeituosos) as desvio")[0].desvio.to_f
   end
   
+  def raiz_quadrada_da_media_das_conformidades
+    Math.sqrt(self.samples.average(:itens_defeituosos))
+  end
+  
 end

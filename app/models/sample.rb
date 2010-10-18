@@ -205,5 +205,34 @@ class Sample < ActiveRecord::Base
     @lci.save
     
   end
+  
+  def calcular_carta_c
+    
+    @calculo = self.control.raiz_quadrada_da_media_das_conformidades
+    
+    @lc = self.limit_calculations.where({:categoria=>:atributos, :tipo=>:c, :calculo=>:lc}).limit(1).last
+    if @lc==nil
+      @lc = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:c, :calculo=>:lc})
+    end
+    @lc.valor = self.control.media_de_itens_defeituosos
+    @lc.save
+    
+    
+    
+    @lcs = self.limit_calculations.where({:categoria=>:atributos, :tipo=>:c, :calculo=>:lcs}).limit(1).last
+    if @lcs==nil
+      @lcs = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:c, :calculo=>:lcs})
+    end
+    @lcs.valor = @lc.valor+3*@calculo
+    @lcs.save
+    
+    @lci = self.limit_calculations.where({:categoria=>:atributos, :tipo=>:c, :calculo=>:lci}).limit(1).last
+    if @lci==nil
+      @lci = self.limit_calculations.build({:categoria=>:atributos, :tipo=>:c, :calculo=>:lci})
+    end
+    @lci.valor = @lc.valor-3*@calculo
+    @lci.save
+    
+  end
 
 end
