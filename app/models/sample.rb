@@ -27,7 +27,7 @@ class Sample < ActiveRecord::Base
        when "desvio_padrao" then (@constant.b4*self.control.media_dos_desvios).round(2)
        when "mediana" then (self.control.media_das_medianas+@constant.a2*self.control.media_das_amplitudes).round(2)
     end
-    ((@control.ls_padrao!=nil and @control.ls_padrao>0) ? @control.ls_padrao : resultado)
+    ((self.control.ls_padrao!=nil and @control.ls_padrao>0) ? self.control.ls_padrao : resultado)
   end
   
   def limite_central tipo
@@ -48,7 +48,7 @@ class Sample < ActiveRecord::Base
        when "desvio_padrao" then (@constant.b3*self.control.media_dos_desvios).round(2)
        when "mediana" then (self.control.media_das_medianas-@constant.a2*self.control.media_das_amplitudes).round(2)
     end
-    (@control.li_padrao!=nil ? @control.li_padrao : resultado)
+    (self.control.li_padrao!=nil ? self.control.li_padrao : resultado)
   end
 
   def calcular_mediana
