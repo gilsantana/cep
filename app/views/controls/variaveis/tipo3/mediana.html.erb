@@ -55,7 +55,7 @@ $(document).ready(function() {
 		 data: <%= formatar_dados @control.samples, :limite_superior, :mediana %>
 	  }	,{
 			 name: 'Amplitude', 
-			 data: <%= formatar_dados @control.samples, :mediana, {:comparar=>:limite_superior} %>
+			 data: <%= formatar_dados @control.samples, :mediana, {:comparar_maior=>:limite_superior, :comparar_menor=>:limite_inferior} %>
 		  }]
    });
 

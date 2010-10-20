@@ -59,7 +59,7 @@ $(document).ready(function() {
 		 data: <%= formatar_dados @control.samples, :limite_superior, :desvio_padrao %>
 	  }	,{
 			 name: 'Desvio Padrão', 
-			 data: <%= formatar_dados @control.samples, :desvio_padrao, {:comparar=>:limite_superior} %>
+			 data: <%= formatar_dados @control.samples, :desvio_padrao, {:comparar_maior=>:limite_superior, :comparar_menor=>:limite_inferior} %>
 		  }]
    });
 
