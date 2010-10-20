@@ -1,5 +1,6 @@
 <div class="innerdiv"> 
 	<h2 class="head-alt-white">Controle</h2> 
+	<%= link_to "Configurar & Editar", edit_control_path(@control), :class=>"button top-button red" %>
 	<ul class="tabs">
 		<li><%= link_to "Informações", @control, :class=>"current"%></li>
 		<li><%= link_to "Arquivos", control_sheets_path(@control)%></li>
