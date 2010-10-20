@@ -1,55 +1,32 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Control:</b>
-  <%= @sheet.control %>
-</p>
-
-<p>
-  <b>First column is label:</b>
-  <%= @sheet.first_column_is_label %>
-</p>
-
-<p>
-  <b>Firs line is label:</b>
-  <%= @sheet.firs_line_is_label %>
-</p>
-
-<p>
-  <b>Initial time:</b>
-  <%= @sheet.initial_time %>
-</p>
-
-<p>
-  <b>Increment value:</b>
-  <%= @sheet.increment_value %>
-</p>
-
-<p>
-  <b>Incremente type:</b>
-  <%= @sheet.incremente_type %>
-</p>
-
-<p>
-  <b>File file name:</b>
-  <%= @sheet.file_file_name %>
-</p>
-
-<p>
-  <b>File content type:</b>
-  <%= @sheet.file_content_type %>
-</p>
-
-<p>
-  <b>File file size:</b>
-  <%= @sheet.file_file_size %>
-</p>
-
-<p>
-  <b>File updated at:</b>
-  <%= @sheet.file_updated_at %>
-</p>
+<%= form_for ([@control, @sheet], :url=>processar_control_sheet_path(@control, @sheet), :method=>:post) do %>
+<% if @sheet.errors.any? %>
+<div class="notification errors">
+	<%= pluralize(@sheet.errors.count, "erro impediu", "erros impediram") %> o registro de ser salvo:
+	<p class="collapsible collapsible-heading"><a href="#" class="collapsible-heading-toggle"><span class="collapsible-heading-status">Ocultar </span>Mostrar detalhes!</a></p>
+	<ul class="collapsible-content" aria-hidden="false">
+		<% @sheet.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
 
 
-<%= link_to 'Edit', edit_sheet_path(@sheet) %> |
-<%= link_to 'Back', sheets_path %>
+
+<div class="innerdiv"> 
+	<!-- Tabs --> 
+	<h2 class="head-alt-white">Amostras</h2> 
+	<div class="innercontent"> 
+		<!-- tab "panes" --> 
+		<div class="panes"> 
+			<div> 
+				<fieldset> 
+					<legend>Importar</legend> 
+					<%= render "arquivo" %>
+					<input class="button black bigger" type="submit" value="Processar">
+				</fieldset> 
+			</div> 
+		</div> 
+	</div> 
+</div> 
+<% end %>

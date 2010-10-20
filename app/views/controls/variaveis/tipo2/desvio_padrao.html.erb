@@ -50,16 +50,16 @@ $(document).ready(function() {
       },
       series: [{
          name: 'LC',
-         data: <%= formatar_dados @lc_amplitude, :valor %>
+         data: <%= formatar_dados @control.samples, :limite_central, :desvio_padrao %>
       },{
 	     name: 'LCI',
-	     data: <%= formatar_dados @lci_amplitude, :valor %>
+	     data: <%= formatar_dados @control.samples, :limite_inferior, :desvio_padrao %>
 	  },{
 		 name: 'LCS',
-		 data: <%= formatar_dados @lcs_amplitude, :valor %>
+		 data: <%= formatar_dados @control.samples, :limite_superior, :desvio_padrao %>
 	  }	,{
-			 name: 'Desvio Padrão',
-			 data: <%= formatar_dados @control.samples, :desvio_padrao, @lcs_amplitude, :valor %>
+			 name: 'Desvio Padrão', 
+			 data: <%= formatar_dados @control.samples, :desvio_padrao, {:comparar=>:limite_superior} %>
 		  }]
    });
 

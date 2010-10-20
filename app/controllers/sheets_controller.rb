@@ -41,92 +41,7 @@ class SheetsController < ApplicationController
 
     respond_to do |format|
       if @sheet.save
-
-        s = Openoffice.new(@sheet.arquivo.path)
-        s.default_sheet = s.sheets.first
-
-        @primeira_coluna = @sheet.first_column_is_date==false ? 0 : 1
-        #caso seja por variavel
-        if (s.last_column-@primeira_coluna)>2
-          (s.first_row..s.last_row).each do |linha|
-            @sample = @control.samples.build
-            if @sheet.first_column_is_date==false
-              if linha==1
-                @sample.tempo = @sheet.initial_time
-              else
-                @sample.tempo = @sheet.initial_time+((linha-1)*@sheet.increment_value).send(@sheet.incremente_type)
-              end
-            else
-              @sample.tempo = s.cell(linha, 1)
-            end
-            @sample.save
-            (s.first_column..s.last_column).each do |coluna|
-              @item = @sample.items.build
-              @item.valor = s.cell(linha,coluna)
-              @item.save
-            end
-          end
-
-          @control.samples.each do |amostra|
-            amostra.calcular_media
-          end
-          @control.samples.each do |amostra|
-            amostra.calcular_media
-          end
-
-          @control.samples.each do |amostra|
-            amostra.calcular_limites
-          end
-          # END
-        elsif (s.last_column-@primeira_coluna)==2
-
-          (s.first_row..s.last_row).each do |linha|
-            @sample = @control.samples.build
-            if @sheet.first_column_is_date==false
-              if linha==1
-                @sample.tempo = @sheet.initial_time
-              else
-                @sample.tempo = @sheet.initial_time+((linha-1)*@sheet.increment_value).send(@sheet.incremente_type)
-              end
-            else
-              @sample.tempo = s.cell(linha, 1)
-            end
-            @sample.tamanho_da_amostra = s.cell(linha, 1+@primeira_coluna)
-            @sample.itens_defeituosos = s.cell(linha, 2+@primeira_coluna)
-            @sample.save
-          end
-          @control.samples.each do |amostra|
-            amostra.calcular_carta_p
-            amostra.calcular_carta_np
-          end
-        else
-
-          (s.first_row..s.last_row).each do |linha|
-            @sample = @control.samples.build
-            if @sheet.first_column_is_date==false
-              if linha==1
-                @sample.tempo = @sheet.initial_time
-              else
-                @sample.tempo = @sheet.initial_time+((linha-1)*@sheet.increment_value).send(@sheet.incremente_type)
-              end
-            else
-              @sample.tempo = s.cell(linha, 1)
-            end
-            @sample.itens_defeituosos = s.cell(linha, 1)
-            @sample.save
-
-          end
-
-          @control.samples.each do |amostra|
-            amostra.calcular_carta_c
-          end
-
-
-        end
-
-
-
-        format.html { redirect_to(control_samples_path(@sheet.control), :notice => 'Planilha Importada com sucesso.') }
+        format.html { redirect_to([@sheet.control, @sheet], :notice => 'Planilha Importada com sucesso.') }
         format.xml  { render :xml => @sheet, :status => :created, :location => @sheet }
       else
         format.html { render :action => "new" }
@@ -154,8 +69,42 @@ class SheetsController < ApplicationController
     @sheet.destroy
 
     respond_to do |format|
-      format.html { redirect_to(sheets_url) }
+      format.html { redirect_to(control_sheets_url(@control)) }
       format.xml  { head :ok }
     end
   end
+
+  def processar
+    @sheet = Sheet.find(params[:id])
+    planilha = @sheet.arquivo.planilha
+    
+    ((planilha.first_row+1)..planilha.last_row).each do |index|
+      @sample=@control.samples.build
+      if params[:data]
+        @sample.tempo = planilha.cell(index, params[:data][0].to_i)
+      end
+      if params[:lote]
+        @sample.lote = planilha.cell(index, params[:lote][0].to_i)
+      end
+      @sample.save
+      if params[:adicional]
+        params[:adicional].each do |adicional|
+          @additional_information = AdditionalInformation.new(:informacao=>planilha.cell(1, adicional), :conteudo=>planilha.cell(index, adicional), :sample_id=>@sample.id)
+          @additional_information.save
+        end
+      end
+      
+      if params[:amostra]
+        params[:amostra].each do |adicional|
+          if planilha.cell(index, adicional.to_i)!=nil
+            @item = Item.new(:valor=>planilha.cell(index, adicional.to_i), :sample_id=>@sample.id)
+            @item.save
+          end
+        end
+      end
+      @sample.calcular_media
+    end
+    redirect_to control_samples_path(@control)
+  end
+
 end

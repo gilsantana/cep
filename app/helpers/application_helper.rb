@@ -4,13 +4,13 @@ module ApplicationHelper
     "{y: #{valor},marker: {symbol: 'url(#{image_path('icons/close4.png')})'}}"
   end
 
-  def formatar_dados dados, valor, dados_comparacao=nil, campo_comparacao=nil
+  def formatar_dados dados, valor, calculo
     array = Array.new
     dados.order("tempo ASC").each_with_index do |i, index|
-      if dados_comparacao!=nil
-        array << (dados_comparacao.order("tempo ASC")[index].send(campo_comparacao).round(2) < i.send(valor).round(2) ? marcador_vermelho(i.send(valor).round(2)) : i.send(valor).round(2))
+      if calculo.class.to_s=="Hash"
+        array << (i.send(calculo[:comparar].to_s, valor.to_s) < i.send(valor.to_s).round(2) ? marcador_vermelho(i.send(valor.to_s)) : i.send(valor.to_s))
       else
-        array << i.send(valor).round(2)
+        array << i.send(valor.to_s, calculo.to_s)
       end
     end
     return "["+array.join(',')+"]"

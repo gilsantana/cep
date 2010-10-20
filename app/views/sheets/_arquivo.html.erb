@@ -1,0 +1,27 @@
+<table class="full">
+	<thead>
+		<tr class="alt">
+			<th>Coluna</th>
+			<th>ID do Lote</th>
+			<th>Data</th>
+			<th>Amostra</th>
+			<th>Informação Adicional</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<% (1..@sheet.arquivo.colunas).each do |coluna| %>
+		<tr class="<%= cycle('alt','')%>">
+			<td><%= @sheet.arquivo.planilha.cell(1, coluna) %></td>
+			<td><%= check_box_tag("lote[]", coluna, false, :class=>"lote") %></td>
+			<td><%= check_box_tag("data[]", coluna, false, :class=>"data") %></td>
+			<td><%= check_box_tag("amostra[]", coluna) %></td>
+			<td><%= check_box_tag("adicional[]", coluna, false, :class=>"adicional") %></td>
+		</tr>
+		<% end %>
+		</tbody>
+</table>
+
+
+
+

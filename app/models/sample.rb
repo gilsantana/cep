@@ -6,6 +6,7 @@ class Sample < ActiveRecord::Base
 
   has_many :items, :dependent=>:destroy
   has_many :limit_calculations, :dependent=>:destroy
+  has_many :additional_informations
 
 
   def calcular_media
@@ -17,127 +18,37 @@ class Sample < ActiveRecord::Base
 
     # calcular os limites para Tipo 1 do Controle por Variáveis
   end
-
-  def calcular_limites
-
+  
+  def limite_superior tipo
     @constant = Constant.find_last_by_tamanho(self.items.size)
-
-    @lc_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_media}).limit(1).last
-    if @lc_media==nil
-      @lc_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_media})
+    resultado = case tipo
+       when "media" then (self.control.media_das_medias+@constant.a2*self.control.media_das_amplitudes).round(2)
+       when "amplitude" then (@constant.d4*self.control.media_das_amplitudes).round(2)
+       when "desvio_padrao" then (@constant.b4*self.control.media_dos_desvios).round(2)
+       when "mediana" then (self.control.media_das_medianas+@constant.a2*self.control.media_das_amplitudes).round(2)
     end
-    @lc_media.valor = self.control.media_das_medias
-    @lc_media.save
-
-    @lcs_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_media}).limit(1).last
-    if @lcs_media==nil
-      @lcs_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_media})
-    end
-    @lcs_media.valor = self.control.media_das_medias+@constant.a2*self.control.media_das_amplitudes
-    @lcs_media.save
-
-    @lci_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_media}).limit(1).last
-    if @lci_media==nil
-      @lci_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_media})
-    end
-    @lci_media.valor = self.control.media_das_medias-@constant.a2*self.control.media_das_amplitudes
-    @lci_media.save
-
-
-    @lc_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude}).limit(1).last
-    if @lc_amplitude==nil
-      @lc_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lc_of_amplitude})
-    end
-    @lc_amplitude.valor = self.control.media_das_amplitudes
-    @lc_amplitude.save
-
-    @lcs_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_amplitude}).limit(1).last
-    if @lcs_amplitude==nil
-      @lcs_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lcs_of_amplitude})
-    end
-    @lcs_amplitude.valor = @constant.d4*self.control.media_das_amplitudes
-    @lcs_amplitude.save
-
-    @lci_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_amplitude}).limit(1).last
-    if @lci_amplitude==nil
-      @lci_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo1, :calculo=>:lci_of_amplitude})
-    end
-    @lci_amplitude.valor = @constant.d3*self.control.media_das_amplitudes
-    @lci_amplitude.save
-    #--------------------------
-
-
-    # Controle por Variavel - Tipo 2 
-    @lc_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lc_of_media}).limit(1).last
-    if @lc_media==nil
-      @lc_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lc_of_media})
-    end
-    @lc_media.valor = self.control.media_das_medias
-    @lc_media.save
-
+    (@control.ls_padrao>0 ? @control.ls_padrao : resultado)
+  end
+  
+  def limite_central tipo
     @constant = Constant.find_last_by_tamanho(self.items.size)
-    @lcs_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lcs_of_media}).limit(1).last
-    if @lcs_media==nil
-      @lcs_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lcs_of_media})
+    case tipo
+       when "media" then self.control.media_das_medias.round(2)
+       when "amplitude" then self.control.media_das_amplitudes.round(2)
+       when "desvio_padrao" then self.control.media_dos_desvios.round(2)
+       when "mediana" then self.control.media_das_medianas.round(2)
     end
-    @lcs_media.valor = self.control.media_das_medias+@constant.a3*self.control.media_dos_desvios
-    @lcs_media.save
-
-    @lci_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lci_of_media}).limit(1).last
-    if @lci_media==nil
-      @lci_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lci_of_media})
-    end
-    @lci_media.valor = self.control.media_das_medias-@constant.a3*self.control.media_dos_desvios
-    @lci_media.save
-
-
-    @lc_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lc_of_desvio_padrao}).limit(1).last
-    if @lc_amplitude==nil
-      @lc_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lc_of_desvio_padrao})
-    end
-    @lc_amplitude.valor = self.control.media_dos_desvios
-    @lc_amplitude.save
-
-    @lcs_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lcs_of_desvio_padrao}).limit(1).last
-    if @lcs_amplitude==nil
-      @lcs_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lcs_of_desvio_padrao})
-    end
-    @lcs_amplitude.valor = @constant.b4*self.control.media_dos_desvios
-    @lcs_amplitude.save
-
-    @lci_amplitude = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lci_of_desvio_padrao}).limit(1).last
-    if @lci_amplitude==nil
-      @lci_amplitude = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo2, :calculo=>:lci_of_desvio_padrao})
-    end
-    @lci_amplitude.valor = @constant.b3*self.control.media_dos_desvios
-    @lci_amplitude.save
-    
-    
-    
-    #-----------------------
+  end
+  
+  def limite_inferior tipo
     @constant = Constant.find_last_by_tamanho(self.items.size)
-
-    @lc_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo3, :calculo=>:lc_of_mediana}).limit(1).last
-    if @lc_media==nil
-      @lc_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo3, :calculo=>:lc_of_mediana})
+    resultado = case tipo
+       when "media" then (self.control.media_das_medias-@constant.a2*self.control.media_das_amplitudes).round(2)
+       when "amplitude" then (@constant.d3*self.control.media_das_amplitudes).round(2)
+       when "desvio_padrao" then (@constant.b3*self.control.media_dos_desvios).round(2)
+       when "mediana" then (self.control.media_das_medianas-@constant.a2*self.control.media_das_amplitudes).round(2)
     end
-    @lc_media.valor = self.control.media_das_medias
-    @lc_media.save
-
-    @lcs_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo3, :calculo=>:lcs_of_mediana}).limit(1).last
-    if @lcs_media==nil
-      @lcs_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo3, :calculo=>:lcs_of_mediana})
-    end
-    @lcs_media.valor = self.control.media_das_medias+@constant.a2*self.control.media_das_amplitudes
-    @lcs_media.save
-
-    @lci_media = self.limit_calculations.where({:categoria=>:variaveis, :tipo=>:tipo3, :calculo=>:lci_of_mediana}).limit(1).last
-    if @lci_media==nil
-      @lci_media = self.limit_calculations.build({:categoria=>:variaveis, :tipo=>:tipo3, :calculo=>:lci_of_mediana})
-    end
-    @lci_media.valor = self.control.media_das_medias-@constant.a2*self.control.media_das_amplitudes
-    @lci_media.save
-
+    (@control.li_padrao!=nil ? @control.li_padrao : resultado)
   end
 
   def calcular_mediana

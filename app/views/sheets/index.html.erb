@@ -1,41 +1,14 @@
-<h1>Listing sheets</h1>
-
-<table>
-  <tr>
-    <th>Control</th>
-    <th>First column is label</th>
-    <th>Firs line is label</th>
-    <th>Initial time</th>
-    <th>Increment value</th>
-    <th>Incremente type</th>
-    <th>File file name</th>
-    <th>File content type</th>
-    <th>File file size</th>
-    <th>File updated at</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @sheets.each do |sheet| %>
-  <tr>
-    <td><%= sheet.control %></td>
-    <td><%= sheet.first_column_is_label %></td>
-    <td><%= sheet.firs_line_is_label %></td>
-    <td><%= sheet.initial_time %></td>
-    <td><%= sheet.increment_value %></td>
-    <td><%= sheet.incremente_type %></td>
-    <td><%= sheet.file_file_name %></td>
-    <td><%= sheet.file_content_type %></td>
-    <td><%= sheet.file_file_size %></td>
-    <td><%= sheet.file_updated_at %></td>
-    <td><%= link_to 'Show', sheet %></td>
-    <td><%= link_to 'Edit', edit_sheet_path(sheet) %></td>
-    <td><%= link_to 'Destroy', sheet, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Sheet', new_sheet_path %>
+<div class="innerdiv"> 
+	<h2 class="head-alt-white">Controle</h2> 
+	<%= link_to "Importar Arquivo", new_control_sheet_path(@control), :class=>"button top-button" %>
+	<ul class="tabs">
+		<li><%= link_to "Informações", @control%></li>
+		<li><%= link_to "Arquivos", control_sheets_path(@control), :class=>"current"%></li>
+		<li><%= link_to "Amostras", control_samples_path(@control)%></li>
+	</ul>
+	<div class="innercontent">
+		<div class="panes">
+				<%= render "tabela" %>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+<table class="full">
+	<thead>
+		<tr class="alt">
+			<th>Arquivo</th>
+			<th>Nome</th>
+			<th>Data</th>
+			<th>Linhas</th>
+			<th>Colunas</th>
+			<th></th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<% @sheets.each_with_index do |planilha, i| %>
+		<tr class="<%= cycle('alt','')%>">
+			<td><%= i+1 %></td>
+			<td><%= link_to planilha.arquivo.original_filename, [@control, planilha] %></td>
+			<td><%= l planilha.created_at, :format=>:short %></td>
+			<td><%= planilha.arquivo.linhas %></td>
+			<td><%= planilha.arquivo.colunas %></td>
+			<td>
+			<!-- Icons -->
+			<%= link_to image_tag('icons/edit.png'), edit_control_sheet_path(planilha.control, planilha)%>
+			<%= link_to image_tag('icons/delete.png'), [planilha.control, planilha], :method=>:delete %>
+			</td>
+		</tr>
+		<% end %>
+		</tbody>
+</table>
+

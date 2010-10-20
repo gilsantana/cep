@@ -18,6 +18,14 @@ SimpleNavigation::Configuration.run do |navigation|
             controle.item :samples, "Amostras", control_samples_path(@control) do |amostra|
               amostra.item :new, "Nova Amostra", new_control_sample_path(@control)
             end
+            
+            controle.item :arquivos, "Arquivos", control_sheets_path(@control) do |arquivo|
+              arquivo.item :new, "Novo Arquivo", new_control_sheet_path(@control)
+              if @sheet
+                arquivo.item :show, @sheet.arquivo.original_filename, [@control, @sheet]
+              end
+            end
+            
           end
         end
 

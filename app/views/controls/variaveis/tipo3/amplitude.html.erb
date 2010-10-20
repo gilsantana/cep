@@ -50,16 +50,16 @@ $(document).ready(function() {
       },
       series: [{
          name: 'LC',
-         data: <%= formatar_dados @lc_amplitude, :valor %>
+         data: <%= formatar_dados @control.samples, :limite_central, :amplitude %>
       },{
 	     name: 'LCI',
-	     data: <%= formatar_dados @lci_amplitude, :valor %>
+	     data: <%= formatar_dados @control.samples, :limite_inferior, :amplitude %>
 	  },{
 		 name: 'LCS',
-		 data: <%= formatar_dados @lcs_amplitude, :valor %>
+		 data: <%= formatar_dados @control.samples, :limite_superior, :amplitude %>
 	  }	,{
-			 name: 'Amplitude',
-			 data: <%= formatar_dados @control.samples, :amplitude, @lcs_amplitude, :valor %>
+			 name: 'Amplitude', 
+			 data: <%= formatar_dados @control.samples, :amplitude, {:comparar=>:limite_superior} %>
 		  }]
    });
 

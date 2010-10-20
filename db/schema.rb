@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101018022630) do
+ActiveRecord::Schema.define(:version => 20101020042609) do
+
+  create_table "additional_informations", :force => true do |t|
+    t.integer  "sample_id"
+    t.string   "informacao"
+    t.string   "conteudo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "constants", :force => true do |t|
     t.integer  "tamanho"
@@ -33,6 +41,8 @@ ActiveRecord::Schema.define(:version => 20101018022630) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.boolean  "publico"
+    t.float    "ls_padrao"
+    t.float    "li_padrao"
   end
 
   create_table "items", :force => true do |t|
@@ -63,12 +73,11 @@ ActiveRecord::Schema.define(:version => 20101018022630) do
     t.float    "mediana"
     t.float    "tamanho_da_amostra"
     t.float    "itens_defeituosos"
+    t.string   "lote"
   end
 
   create_table "sheets", :force => true do |t|
     t.integer  "control_id"
-    t.boolean  "first_column_is_label"
-    t.boolean  "firs_line_is_label"
     t.datetime "initial_time"
     t.float    "increment_value"
     t.string   "incremente_type"
@@ -78,7 +87,7 @@ ActiveRecord::Schema.define(:version => 20101018022630) do
     t.datetime "arquivo_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "first_column_is_date"
+    t.boolean  "processado"
   end
 
   create_table "users", :force => true do |t|

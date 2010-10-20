@@ -14,7 +14,9 @@ Qualidade::Application.routes.draw do
       get 'atributos_np'
       get 'atributos_c'
     end
-    resources :sheets
+    resources :sheets do
+      match :processar, :on => :member
+    end
     resources :samples
   end
 

@@ -23,6 +23,8 @@
 				<fieldset> 
 					<legend>Editar</legend> 
 					<%= render "form", {:f=>f} %>
+					<%= f.input :ls_padrao, :label=>"Limite Superior de Controle Padrão", :as=>:string %>
+					<%= f.input :li_padrao, :label=>"Limite Inferior de Controle Padrão", :as=>:string %>
 					<input class="button black bigger" type="submit" value="Salvar">
 				</fieldset> 
 			</div> 

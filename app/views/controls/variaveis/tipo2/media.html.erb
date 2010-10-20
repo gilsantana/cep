@@ -17,7 +17,7 @@ $(document).ready(function() {
          x: -20
       },
       xAxis: {
-         categories: [<%= (1..(@lc_media.size+1)).to_a.join(",") %>]
+         categories: [<%= (1..(@control.samples.size+1)).to_a.join(",") %>]
       },
       yAxis: {
          title: {
@@ -46,41 +46,30 @@ $(document).ready(function() {
       },
       series: [{
          name: 'LC',
-         data: <%= formatar_dados @lc_media, :valor %>
+         data: <%= formatar_dados @control.samples, :limite_central, :media %>
       },{
 	     name: 'LCI',
-	     data: <%= formatar_dados @lci_media, :valor %>
+	     data: <%= formatar_dados @control.samples, :limite_inferior, :media %>
 	  },{
 		 name: 'LCS',
-		 data: <%= formatar_dados @lcs_media, :valor %>
+		 data: <%= formatar_dados @control.samples, :limite_superior, :media %>
 	  }	,{
 			 name: 'Média', 
-			 data: <%= formatar_dados @control.samples, :media, @lcs_media, :valor %>
+			 data: <%= formatar_dados @control.samples, :media, {:comparar=>:limite_superior} %>
 		  }]
    });
-
-
+   
+   
 });
 
+
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="innerdiv">
 			<!-- Tabs -->
 			<h2 class="head-alt-white"><%= @control.nome %></h2>
 			<!-- the tabs -->
 			<ul class="tabs">
-				<li><%= link_to "Média", variaveis_tipo_2_media_control_path(@control), :class=>:current %></li>
+				<li><%= link_to "Média", variaveis_tipo_1_media_control_path(@control), :class=>:current %></li>
 				<li><%= link_to "Desvio Padrão", variaveis_tipo_2_desvio_padrao_control_path(@control) %></li>
 			</ul>
 			<div class="innercontent">
@@ -92,3 +81,4 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</div>
+		

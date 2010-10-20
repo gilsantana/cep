@@ -22,9 +22,9 @@
 	</thead>
 	
 	<tbody>
-		<% @samples.each_with_index do |amostra, i| %>
+		<% @samples.each do |amostra| %>
 		<tr class="<%= cycle('alt','')%>">
-			<td><%= i+1 %></td>
+			<td><%= amostra.lote %></td>
 			<td><%= l amostra.tempo, :format=>:short %></td>
 			
 			<% if @control.items.size>0 %>

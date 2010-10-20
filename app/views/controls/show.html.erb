@@ -2,6 +2,7 @@
 	<h2 class="head-alt-white">Controle</h2> 
 	<ul class="tabs">
 		<li><%= link_to "Informações", @control, :class=>"current"%></li>
+		<li><%= link_to "Arquivos", control_sheets_path(@control)%></li>
 		<li><%= link_to "Amostras", control_samples_path(@control)%></li>
 	</ul>
 	<div class="innercontent">

@@ -27,6 +27,10 @@ class Control < ActiveRecord::Base
   def media_das_medias
     self.samples.average(:media)
   end
+  
+  def media_das_medianas
+    self.samples.average(:mediana)
+  end
 
   def media_das_amplitudes
     self.samples.average(:amplitude)

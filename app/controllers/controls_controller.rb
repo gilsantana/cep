@@ -70,11 +70,6 @@ class ControlsController < ApplicationController
   
   def variaveis_tipo_1_media
     @control = Control.find(params[:id])
-    
-    @lc_media = @control.indice :lc, :variaveis, :tipo1, :media
-    @lci_media = @control.indice :lci, :variaveis, :tipo1, :media
-    @lcs_media = @control.indice :lcs, :variaveis, :tipo1, :media
-    
     render "controls/variaveis/tipo1/media"
   end
   

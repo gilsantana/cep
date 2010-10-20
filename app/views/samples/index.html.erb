@@ -1,8 +1,8 @@
 <div class="innerdiv"> 
 	<h2 class="head-alt-white">Controle</h2> 
-	<%= link_to "Importar amostras", new_control_sheet_path(@control), :class=>"button top-button" %>
 	<ul class="tabs">
 		<li><%= link_to "Informações", @control%></li>
+		<li><%= link_to "Arquivos", control_sheets_path(@control)%></li>
 		<li><%= link_to "Amostras", control_samples_path(@control), :class=>"current"%></li>
 	</ul>
 	<div class="innercontent">
