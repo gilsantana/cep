@@ -53,7 +53,7 @@ end
 
 desc 'Build the gemspec.'
 task :gemspec do |t|
-  exec 'gem build paperclip.gemspec'
+  exec 'gem build paperclip-cloudfiles.gemspec'
 end
 
 desc "Print a list of the files to be put into the gem"
@@ -62,13 +62,13 @@ task :manifest => :clean do
     puts file
   end
 end
-
+ 
 desc "Generate a gemspec file for GitHub"
 task :gemspec => :clean do
   File.open("#{spec.name}.gemspec", 'w') do |f|
     f.write spec.to_ruby
   end
-end
+end 
 
 desc "Build the gem into the current directory"
 task :gem => :gemspec do

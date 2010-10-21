@@ -15,9 +15,20 @@ useful defaults.
 See the documentation for +has_attached_file+ in Paperclip::ClassMethods for
 more detailed options.
 
-The complete RDoc[http://rdoc.info/projects/thoughtbot/paperclip] is online.
+This fork has support for Rackspace Cloud Files.  It requires the "cloudfiles"
+gem, >= 1.4.4, from Gemcutter.org.  The Thoughtbot guys have indicated that they
+don't want to pull any code into the official Paperclip mainline that they don't 
+personally use on projects, so until they discover the joy of Cloud Files, this 
+fork is available as the {paperclip-cloudfiles gem}[http://gemcutter.org/gems/paperclip-cloudfiles]
+on Gemcutter's gem server.
 
 ==Quick Start
+
+In your environment.rb:
+
+  config.gem "paperclip-cloudfiles", :lib => 'paperclip'
+
+This is because the gem name and the library name don't match.
 
 In your model:
 
@@ -92,9 +103,8 @@ file at
 NOTE: This is a change from previous versions of Paperclip, but is overall a
 safer choice for the default file store.
 
-You may also choose to store your files using Amazon's S3 service. You can find
-more information about S3 storage at the description for
-Paperclip::Storage::S3.
+You may also choose to store your files using Amazon's S3 service or Rackspace's Cloud Files service. You can find
+more information about S3 storage at the description for Paperclip::Storage::S3. and more information about Cloud Files storage at the description for Paperclip::Storage::CloudFile
 
 Files on the local filesystem (and in the Rails app's public directory) will be
 available to the internet at large. If you require access control, it's
@@ -140,7 +150,7 @@ For example, assuming we had this definition:
   has_attached_file :scan, :styles => { :text => { :quality => :better } },
                            :processors => [:rotator, :ocr]
 
-then both the :rotator processor and the :ocr processor would receive the
+then both the :rotator processor and the :ocr processor would receive the 
 options "{ :quality => :better }". This parameter may not mean anything to one
 or more or the processors, and they are expected to ignore it.
 
@@ -175,8 +185,7 @@ If you'd like to contribute a feature or bugfix: Thanks! To make sure your
 fix/feature has a high chance of being included, please read the following
 guidelines:
 
-1. Ask on the mailing list[http://groups.google.com/group/paperclip-plugin], or 
-   post a new GitHub Issue[http://github.com/thoughtbot/paperclip/issues].
+1. Ask on the mailing list, or post a new GitHub Issue.
 2. Make sure there are tests! We will not accept any patch that is not tested.
    It's a rare time when explicit tests aren't needed. If you have questions
    about writing tests for paperclip, please ask the mailing list.

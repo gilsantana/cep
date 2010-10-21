@@ -17,7 +17,7 @@ module Paperclip
       when "csv", "xml", "css"       then "text/#{type}"
       else
         # On BSDs, `file` doesn't give a result code of 1 if the file doesn't exist.
-        content_type = (Paperclip.run("file", "-b --mime-type :file", :file => self.path).split(':').last.strip rescue "application/x-#{type}")
+        content_type = (Paperclip.run("file", "--mime-type", self.path).split(':').last.strip rescue "application/x-#{type}")
         content_type = "application/x-#{type}" if content_type.match(/\(.*?\)/)
         content_type
       end
@@ -32,27 +32,17 @@ module Paperclip
     def size
       File.size(self)
     end
-
-    # Returns the hash of the file.
-    def fingerprint
-      data = self.read
-      self.rewind
-      Digest::MD5.hexdigest(data)
-    end
   end
 end
 
 if defined? StringIO
   class StringIO
-    attr_accessor :original_filename, :content_type, :fingerprint
+    attr_accessor :original_filename, :content_type
     def original_filename
       @original_filename ||= "stringio.txt"
     end
     def content_type
       @content_type ||= "text/plain"
-    end
-    def fingerprint
-      @fingerprint ||= Digest::MD5.hexdigest(self.string)
     end
   end
 end
@@ -60,3 +50,4 @@ end
 class File #:nodoc:
   include Paperclip::Upfile
 end
+

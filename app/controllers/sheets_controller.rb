@@ -1,6 +1,6 @@
 class SheetsController < ApplicationController
   before_filter :find_control
-
+  
   def find_control
     @control = Control.find(params[:control_id])
   end

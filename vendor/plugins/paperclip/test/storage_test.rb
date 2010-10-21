@@ -38,6 +38,45 @@ class StorageTest < Test::Unit::TestCase
       assert_equal({:test => "12345"}, @avatar.parse_credentials(:test => "12345"))
     end
   end
+  
+  context "Parsing Cloud Files credentials" do
+    setup do
+      CloudFiles::Connection.stubs(:new).returns(true)
+      
+      rebuild_model :storage => :cloud_files,
+                    :bucket => "testing",
+                    :cloudfiles_credentials => {:not => :important}
+
+      
+      @dummy = Dummy.new
+      @avatar = @dummy.avatar
+      @current_env = RAILS_ENV
+    end
+
+    teardown do
+      Object.const_set("RAILS_ENV", @current_env)
+    end
+
+    should "get the correct credentials when RAILS_ENV is production" do
+      Object.const_set('RAILS_ENV', "production")
+      assert_equal({:username => "minter"},
+                   @avatar.parse_credentials('production' => {:username => 'minter'},
+                                             :development => {:username => "mcornick"}))
+    end
+
+    should "get the correct credentials when RAILS_ENV is development" do
+      Object.const_set('RAILS_ENV', "development")
+      assert_equal({:key => "mcornick"},
+                   @avatar.parse_credentials('production' => {:key => 'minter'},
+                                             :development => {:key => "mcornick"}))
+    end
+
+    should "return the argument if the key does not exist" do
+      Object.const_set('RAILS_ENV', "not really an env")
+      assert_equal({:test => "minter"}, @avatar.parse_credentials(:test => "minter"))
+    end
+  end
+  
 
   context "" do
     setup do
@@ -55,6 +94,31 @@ class StorageTest < Test::Unit::TestCase
       assert_match %r{^http://s3.amazonaws.com/bucket/avatars/stringio.txt}, @dummy.avatar.url
     end
   end
+
+  context "" do
+    setup do
+      container = mock
+      container.stubs(:make_public).returns(true)
+      container.stubs(:public_url).returns('http://c0010181.cdn.cloudfiles.rackspacecloud.com/avatars/stringio.txt') 
+      container.stubs(:cdn_url).returns('http://c0010181.cdn.cloudfiles.rackspacecloud.com')
+      connection = mock
+      connection.stubs(:create_container).returns(container)
+      CloudFiles::Connection.expects(:new).returns(connection)
+      
+      rebuild_model :storage => :cloud_files,
+                    :cloudfiles_credentials => {},
+                    :container => "container",
+                    :path => ":attachment/:basename.:extension"
+      @dummy = Dummy.new
+      @dummy.avatar = StringIO.new(".")
+    end
+
+    should "return a url based on an Cloud Files path" do
+      assert_match %r{^http://c0010181.cdn.cloudfiles.rackspacecloud.com/avatars/stringio.txt}, @dummy.avatar.url
+    end
+  end
+  
+  
   context "" do
     setup do
       AWS::S3::Base.stubs(:establish_connection!)
@@ -71,6 +135,7 @@ class StorageTest < Test::Unit::TestCase
       assert_match %r{^http://bucket.s3.amazonaws.com/avatars/stringio.txt}, @dummy.avatar.url
     end
   end
+  
   context "" do
     setup do
       AWS::S3::Base.stubs(:establish_connection!)
@@ -139,6 +204,33 @@ class StorageTest < Test::Unit::TestCase
       assert_equal "dev_bucket", @dummy.avatar.bucket_name
     end
   end
+  
+  context "Parsing Cloud Files credentials with a container in them" do
+    setup do
+      #CloudFiles::Connection.expects(:new).returns(true)
+      #CloudFiles::Connection.any_instance.stubs(:create_container).returns(true)
+      rebuild_model :storage => :cloud_files,
+                    :cloudfiles_credentials => {
+                      :production   => { :container => "prod_container" },
+                      :development  => { :container => "dev_container" }
+                    }
+      @dummy = Dummy.new
+      @old_env = RAILS_ENV
+    end
+
+    teardown{ Object.const_set("RAILS_ENV", @old_env) }
+
+    should "get the right container in production" do
+      Object.const_set("RAILS_ENV", "production")
+      assert_equal "prod_container", @dummy.avatar.container_name
+    end
+
+    should "get the right bucket in development" do
+      Object.const_set("RAILS_ENV", "development")
+      assert_equal "dev_container", @dummy.avatar.container_name
+    end
+  end
+  
 
   context "An attachment with S3 storage" do
     setup do
@@ -185,21 +277,6 @@ class StorageTest < Test::Unit::TestCase
         end
       end
 
-      context "and saved without a bucket" do
-        setup do
-          class AWS::S3::NoSuchBucket < AWS::S3::ResponseError
-            # Force the class to be created as a proper subclass of ResponseError thanks to AWS::S3's autocreation of exceptions
-          end
-          AWS::S3::Bucket.expects(:create).with("testing")
-          AWS::S3::S3Object.stubs(:store).raises(AWS::S3::NoSuchBucket.new(:message, :response)).then.returns(true)
-          @dummy.save
-        end
-
-        should "succeed" do
-          assert true
-        end
-      end
-
       context "and remove" do
         setup do
           AWS::S3::S3Object.stubs(:exists?).returns(true)
@@ -213,7 +290,76 @@ class StorageTest < Test::Unit::TestCase
       end
     end
   end
+  
+  context "An attachment with Cloud Files storage" do
+    setup do
+      rebuild_model :storage => :cloud_files,
+                    :container => "testing",
+                    :path => ":attachment/:style/:basename.:extension",
+                    :cloudfiles_credentials => {
+                      'username' => "minter",
+                      'api_key' => "xxxxxxx"
+                    }
+    end
 
+    should "be extended by the CloudFile module" do
+      CloudFiles::Connection.stubs(:new).returns(true)
+      assert Dummy.new.avatar.is_a?(Paperclip::Storage::CloudFile)
+    end
+
+    should "not be extended by the Filesystem module" do
+      CloudFiles::Connection.stubs(:new).returns(true)
+      assert ! Dummy.new.avatar.is_a?(Paperclip::Storage::Filesystem)
+    end
+
+  #   context "when assigned" do
+  #     setup do
+  #       @cf_mock = stub
+  #       CloudFiles::Connection.expects(:new).returns(@cf_mock)
+  #       @file = File.new(File.join(File.dirname(__FILE__), 'fixtures', '5k.png'), 'rb')
+  #       @dummy = Dummy.new
+  #       @dummy.avatar = @file
+  #     end
+  # 
+  #     teardown { @file.close }
+  # 
+  #     context "and saved" do
+  #       setup do
+  #         @container_mock = stub
+  #         @object_mock = stub
+  #         @cf_mock.expects(:create_container).with("testing").returns(@container_mock)
+  #         @container_mock.expects(:make_public).returns(true)
+  #         @container_mock.expects(:create_object).returns(@object_mock)
+  #         @object_mock.expects(:write).returns(true)
+  #         @dummy.save
+  #       end
+  #     
+  #       should "succeed" do
+  #         assert true
+  #       end
+  #     end
+  #     
+  #     context "and remove" do
+  #       setup do
+  #         @container_mock = stub
+  #         print "DEBUG: ContainerMock is #{@container_mock}\n"
+  #         @object_mock = stub
+  #         print "DEBUG: Object  Mock is #{@object_mock}\n"
+  #         @cf_mock.expects(:create_container).with("testing").returns(@container_mock)
+  #         @container_mock.expects(:make_public).returns(true)
+  #         @container_mock.stubs(:object_exists?).returns(true)
+  #         @container_mock.expects(:delete_object).with('avatars/original/5k.png').returns(true)
+  #         @dummy.destroy_attached_files
+  #       end
+  #     
+  #       should "succeed" do
+  #         assert true
+  #       end
+  #     end
+  #   end
+  end
+  
+  
   context "An attachment with S3 storage and bucket defined as a Proc" do
     setup do
       AWS::S3::Base.stubs(:establish_connection!)
@@ -227,6 +373,21 @@ class StorageTest < Test::Unit::TestCase
       assert "bucket_b", Dummy.new(:other => 'b').avatar.bucket_name
     end
   end
+  
+  context "An attachment with Cloud Files storage and container defined as a Proc" do
+    setup do
+      CloudFiles::Connection.stubs(:new).returns(true)
+      rebuild_model :storage => :cloud_files,
+                    :bucket => lambda { |attachment| "container_#{attachment.instance.other}" },
+                    :cloudfiles_credentials => {:not => :important}
+    end
+    
+    should "get the right container name" do
+      assert "container_a", Dummy.new(:other => 'a').avatar.container_name
+      assert "container_b", Dummy.new(:other => 'b').avatar.container_name
+    end
+  end
+  
 
   context "An attachment with S3 storage and specific s3 headers set" do
     setup do
@@ -340,7 +501,7 @@ class StorageTest < Test::Unit::TestCase
         teardown { @file.close }
 
         should "still return a Tempfile when sent #to_file" do
-          assert_equal Paperclip::Tempfile, @dummy.avatar.to_file.class
+          assert_equal Tempfile, @dummy.avatar.to_file.class
         end
 
         context "and saved" do
@@ -355,4 +516,47 @@ class StorageTest < Test::Unit::TestCase
       end
     end
   end
+  
+  unless ENV["CF_TEST_BUCKET"].blank?
+    context "Using CloudFiles for real, an attachment with CloudFiles storage" do
+      setup do
+        rebuild_model :styles => { :thumb => "100x100", :square => "32x32#" },
+                      :storage => :cloud_files,
+                      :container => ENV["CF_TEST_BUCKET"],
+                      :path => ":class/:attachment/:id/:style.:extension",
+                      :cloudfiles_credentials => File.new(File.join(File.dirname(__FILE__), "cloudfiles.yml"))
+
+        Dummy.delete_all
+        @dummy = Dummy.new
+      end
+
+      should "be extended by the CloudFile module" do
+        assert Dummy.new.avatar.is_a?(Paperclip::Storage::CloudFile)
+      end
+
+      context "when assigned" do
+        setup do
+          @file = File.new(File.join(File.dirname(__FILE__), 'fixtures', '5k.png'), 'rb')
+          @dummy.avatar = @file
+        end
+
+        teardown { @file.close }
+
+        should "still return a Tempfile when sent #to_io" do
+          assert_equal Tempfile, @dummy.avatar.to_io.class
+        end
+
+        context "and saved" do
+          setup do
+            @dummy.save
+          end
+
+          should "be on Cloud Files" do
+            assert true
+          end
+        end
+      end
+    end
+  end
+  
 end

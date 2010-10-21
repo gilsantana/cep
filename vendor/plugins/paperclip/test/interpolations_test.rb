@@ -82,17 +82,14 @@ class InterpolationsTest < Test::Unit::TestCase
 
   should "reinterpolate :url" do
     attachment = mock
+    attachment.expects(:options).returns({:url => ":id"})
     attachment.expects(:url).with(:style, false).returns("1234")
     assert_equal "1234", Paperclip::Interpolations.url(attachment, :style)
   end
 
   should "raise if infinite loop detcted reinterpolating :url" do
-    attachment = Object.new
-    class << attachment
-      def url(*args)
-        Paperclip::Interpolations.url(self, :style)
-      end
-    end
+    attachment = mock
+    attachment.expects(:options).returns({:url => ":url"})
     assert_raises(Paperclip::InfiniteInterpolationError){ Paperclip::Interpolations.url(attachment, :style) }
   end
 
