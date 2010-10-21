@@ -43,11 +43,13 @@ GEM
       warden (~> 0.10.7)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    facter (1.5.8)
     fastthread (1.0.7)
     gem_plugin (0.2.3)
     google-spreadsheet-ruby (0.1.2)
       nokogiri (>= 1.4.3.1)
       oauth (>= 0.3.6)
+    highline (1.6.1)
     hoe (2.6.2)
       rake (>= 0.8.7)
       rubyforge (>= 2.0.4)
@@ -70,6 +72,8 @@ GEM
     paperclip-cloudfiles (2.3.2)
     pg (0.9.0)
     polyglot (0.3.1)
+    puppet (0.24.8)
+      facter (>= 1.1.0)
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
@@ -93,6 +97,12 @@ GEM
     ruby-ole (1.2.10.1)
     rubyforge (2.0.4)
       json_pure (>= 1.1.7)
+    shadow_puppet (0.4.0)
+      activesupport (>= 2.0.0)
+      builder (>= 2.1.2)
+      facter (>= 1.5.4)
+      highline (>= 1.5.0)
+      puppet (= 0.24.8)
     simple_form (1.2.2)
     spreadsheet (0.6.4.1)
       ruby-ole
@@ -119,6 +129,7 @@ DEPENDENCIES
   pg
   rails (= 3.0.0)
   roo
+  shadow_puppet
   simple_form
   spreadsheet
   zip
