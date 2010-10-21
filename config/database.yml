@@ -43,8 +43,7 @@ test:
   password: 072029
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql
   database: qualidade_production
   pool: 5
   username: root
