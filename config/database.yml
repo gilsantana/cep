@@ -47,5 +47,5 @@ production:
   encoding: unicode
   database: qualidade_production
   pool: 5
-  username: root
+  username: postgres
   password: 072029
