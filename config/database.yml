@@ -49,3 +49,5 @@ production:
   pool: 5
   username: postgres
   password: 072029
+  host: localhost
+  port: 5432

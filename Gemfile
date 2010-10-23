@@ -11,7 +11,6 @@ gem 'google-spreadsheet-ruby'
 gem 'chronic'
 gem 'paperclip-cloudfiles'
 gem 'cloudfiles'
-gem 'inploy'
 gem 'shadow_puppet'
 gem 'nokogiri'
 gem "mongrel"
