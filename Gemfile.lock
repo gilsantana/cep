@@ -126,6 +126,7 @@ DEPENDENCIES
   google-spreadsheet-ruby
   inploy
   mongrel
+  nokogiri
   paper_trail
   paperclip-cloudfiles
   pg
