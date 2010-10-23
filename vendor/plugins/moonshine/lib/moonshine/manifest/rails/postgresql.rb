@@ -36,7 +36,7 @@ module Moonshine::Manifest::Rails::Postgresql
       :mode    => '600',
       :owner   => 'postgres',
       :group   => 'postgres',
-      :notify  => service('postgresql-8.3')
+      :notify  => service('postgresql-8.4')
   end
 
   # Install the <tt>pg</tt> rubygem and dependencies
@@ -51,7 +51,7 @@ module Moonshine::Manifest::Rails::Postgresql
     psql "CREATE USER #{database_environment[:username]} WITH PASSWORD '#{database_environment[:password]}'",
       :alias    => "postgresql_user",
       :unless   => psql_query('\\\\du') + "| grep #{database_environment[:username]}",
-      :require  => service('postgresql-8.3')
+      :require  => service('postgresql-8.4')
   end
 
   # Create the database from the current <tt>database_environment</tt>
