@@ -13,5 +13,6 @@ gem 'paperclip-cloudfiles'
 gem 'cloudfiles'
 gem 'inploy'
 gem 'shadow_puppet'
+gem 'nokogiri'
 gem "mongrel"
 gem 'pg'
