@@ -408,11 +408,11 @@ describe Moonshine::Manifest::Rails do
   specify "#postgresql_server" do
     @manifest.postgresql_server
 
-    @manifest.should have_service("postgresql-8.3")
+    @manifest.should have_service("postgresql-8.4")
     @manifest.should have_package("postgresql-client")
     @manifest.should have_package("postgresql-contrib")
-    @manifest.should have_file("/etc/postgresql/8.3/main/pg_hba.conf")
-    @manifest.should have_file("/etc/postgresql/8.3/main/postgresql.conf")
+    @manifest.should have_file("/etc/postgresql/8.4/main/pg_hba.conf")
+    @manifest.should have_file("/etc/postgresql/8.4/main/postgresql.conf")
   end
 
   specify "#postgresql_gem" do
