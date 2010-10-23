@@ -66,7 +66,6 @@ GEM
       daemons (>= 1.0.3)
       fastthread (>= 1.0.1)
       gem_plugin (>= 0.2.3)
-    mysql2 (0.2.6)
     nokogiri (1.4.3.1)
     oauth (0.4.3)
     paper_trail (1.6.1)
@@ -127,11 +126,10 @@ DEPENDENCIES
   google-spreadsheet-ruby
   inploy
   mongrel
-  mysql2
   paper_trail
   paperclip-cloudfiles
   pg
-  rails (= 3.0.0)
+  rails
   roo
   shadow_puppet
   simple_form

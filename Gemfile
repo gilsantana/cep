@@ -13,10 +13,5 @@ gem 'paperclip-cloudfiles'
 gem 'cloudfiles'
 gem 'inploy'
 gem 'shadow_puppet'
-group :development do
-  gem "mongrel"
-  gem 'pg'
-end
-group :production do
-  gem "mysql2"
-end
+gem "mongrel"
+gem 'pg'
