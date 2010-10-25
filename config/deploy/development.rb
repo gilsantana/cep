@@ -3,7 +3,7 @@
 #############################################################
 
 set :application, "qualidade"
-set :deploy_to, "/root/deploy/#{application}"
+set :deploy_to, "/sanderson/deploy/#{application}"
 
 #############################################################
 # Settings
@@ -49,7 +49,7 @@ namespace :server_setup do
     update_apt_get
     install_dev_tools
     install_git
-    install_sqlite3
+    install_postgres
     install_rails_stack
     install_apache
     install_passenger
