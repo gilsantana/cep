@@ -89,7 +89,6 @@ namespace :server_setup do
   desc "Install PostgreSQL"
   task :install_postgres do
     sudo "apt-get install postgresql-9.0 libpq-dev libpgsql-ruby -y"
-    sudo "/usr/bin/psql -U postgres -c \"CREATE USER #{user} WITH PASSWORD '#{user_passphrase}'\""
   end
 
   desc "Install SQLite3"
