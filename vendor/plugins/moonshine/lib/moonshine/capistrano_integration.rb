@@ -434,6 +434,8 @@ module Moonshine
 
         namespace :aptget do
           task :update do
+            sudo 'apt-get install python-software-properties -y'
+            sudo 'add-apt-repository ppa:pitti/postgresql'
             sudo 'apt-get update'
           end
         end

@@ -7,11 +7,11 @@ module Moonshine::Manifest::Rails::Postgresql
   # Installs <tt>postgresql</tt> from apt and enables the <tt>postgresql</tt>
   # service.
   def postgresql_server
-    package 'postgresql', :ensure => :installed
+    package 'postgresql-9.0', :ensure => :installed
     package 'postgresql-client', :ensure => :installed
     package 'postgresql-contrib', :ensure => :installed
     package 'libpq-dev', :ensure => :installed
-    service 'postgresql-8.4',
+    service 'postgresql-9.0',
       :ensure     => :running,
       :hasstatus  => true,
       :require    => [
@@ -21,7 +21,7 @@ module Moonshine::Manifest::Rails::Postgresql
       ]
     #ensure the postgresql key is present on the configuration hash
     configure(:postgresql => {})
-    file '/etc/postgresql/8.4/main/pg_hba.conf',
+    file '/etc/postgresql/9.0/main/pg_hba.conf',
       :ensure  => :present,
       :content => template(File.join(File.dirname(__FILE__), 'templates', 'pg_hba.conf.erb')),
       :require => package('postgresql'),
@@ -29,7 +29,7 @@ module Moonshine::Manifest::Rails::Postgresql
       :owner   => 'postgres',
       :group   => 'postgres',
       :notify  => service('postgresql-8.4')
-    file '/etc/postgresql/8.4/main/postgresql.conf',
+    file '/etc/postgresql/9.0/main/postgresql.conf',
       :ensure  => :present,
       :content => template(File.join(File.dirname(__FILE__), 'templates', 'postgresql.conf.erb')),
       :require => package('postgresql'),

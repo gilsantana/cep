@@ -82,7 +82,7 @@ module Moonshine::Manifest::Rails::Rails
   end
 
   # Automatically install all gems needed specified in the array at
-  # <tt>configuration[:gems]</tt>. This loads gems from
+  # <tt>configuration[:gems]</tt>. sudo apt-getThis loads gems from
   # <tt>config/gems.yml</tt>, which can be generated from by running
   # <tt>rake moonshine:gems</tt> locally.
   def rails_gems
