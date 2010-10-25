@@ -11,7 +11,7 @@ set :deploy_to, "/home/sanderson/deploy/#{application}"
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
-set :use_sudo, true
+set :use_sudo, false
 set :scm_verbose, true
 
 #############################################################
@@ -72,7 +72,7 @@ namespace :server_setup do
 
   desc "Install Development Tools"
   task :install_dev_tools do
-    sudo "apt-get install build-essential zlib1g-dev libssl-dev libreadline5-dev -y"
+    sudo "apt-get install build-essential zlib1g-dev libssl-dev libreadline5-dev libxml2 libxml2-dev libxslt1-dev -y"
   end
 
   desc "Install Git"
@@ -110,7 +110,8 @@ namespace :server_setup do
       "cd rubygems-1.3.5/ && sudo ruby setup.rb",
       "sudo ln -s /usr/bin/gem1.8 /usr/bin/gem",
       "sudo gem update --system",
-      "sudo gem install rails --no-ri --no-rdoc"
+      "sudo gem install rails --no-ri --no-rdoc",
+      "sudo gem install bundler"
     ].each {|cmd| run cmd}
   end
 

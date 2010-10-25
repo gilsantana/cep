@@ -47,7 +47,7 @@ production:
   encoding: unicode
   database: qualidade_production
   pool: 5
-  username: postgres
+  username: sanderson
   password: 072029
   host: localhost
   port: 5432
