@@ -3,7 +3,7 @@
 #############################################################
 
 set :application, "qualidade"
-set :deploy_to, "/sanderson/deploy/#{application}"
+set :deploy_to, "/home/sanderson/deploy/#{application}"
 
 #############################################################
 # Settings
