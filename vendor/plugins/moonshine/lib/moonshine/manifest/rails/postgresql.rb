@@ -22,22 +22,7 @@ module Moonshine::Manifest::Rails::Postgresql
       ]
     #ensure the postgresql key is present on the configuration hash
     configure(:postgresql => {})
-    file '/etc/postgresql/8.4/main/pg_hba.conf',
-      :ensure  => :present,
-      :content => template(File.join(File.dirname(__FILE__), 'templates', 'pg_hba.conf.erb')),
-      :require => package('postgresql'),
-      :mode    => '600',
-      :owner   => 'postgres',
-      :group   => 'postgres',
-      :notify  => service('postgresql-8.4')
-    file '/etc/postgresql/8.4/main/postgresql.conf',
-      :ensure  => :present,
-      :content => template(File.join(File.dirname(__FILE__), 'templates', 'postgresql.conf.erb')),
-      :require => package('postgresql'),
-      :mode    => '600',
-      :owner   => 'postgres',
-      :group   => 'postgres',
-      :notify  => service('postgresql-8.4')
+    
   end
 
   # Install the <tt>pg</tt> rubygem and dependencies
