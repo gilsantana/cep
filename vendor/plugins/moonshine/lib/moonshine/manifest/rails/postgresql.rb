@@ -22,7 +22,22 @@ module Moonshine::Manifest::Rails::Postgresql
       ]
     #ensure the postgresql key is present on the configuration hash
     configure(:postgresql => {})
-    
+    file '/etc/postgresql/8.4/main/pg_hba.conf',
+      :ensure  => :present,
+      :content => template(File.join(File.dirname(__FILE__), 'templates', 'pg_hba.conf.erb')),
+      :require => package('postgresql'),
+      :mode    => '600',
+      :owner   => 'postgres',
+      :group   => 'postgres',
+      :notify  => service('postgresql-8.4')
+    file '/etc/postgresql/8.4/main/postgresql.conf',
+      :ensure  => :present,
+      :content => template(File.join(File.dirname(__FILE__), 'templates', 'postgresql.conf.erb')),
+      :require => package('postgresql'),
+      :mode    => '600',
+      :owner   => 'postgres',
+      :group   => 'postgres',
+      :notify  => service('postgresql-8.4')
   end
 
   # Install the <tt>pg</tt> rubygem and dependencies
@@ -33,12 +48,7 @@ module Moonshine::Manifest::Rails::Postgresql
 
   # Grant the database user specified in the current <tt>database_environment</tt>
   # permisson to access the database with the supplied password
-  def postgresql_user
-    psql "CREATE USER #{database_environment[:username]} WITH PASSWORD '#{database_environment[:password]}'",
-      :alias    => "postgresql_user",
-      :unless   => psql_query('\\\\du') + "| grep #{database_environment[:username]}",
-      :require  => service('postgresql-8.4')
-  end
+
 
   # Create the database from the current <tt>database_environment</tt>
   def postgresql_database
