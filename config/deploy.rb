@@ -6,7 +6,7 @@ set :scm, :git
 set :scm_username, "gilsantana"
 set :scm_passphrase, "072029"
 
-#set :use_sudo,    true
+set :use_sudo,    true
 set :deploy_to,   "/rails_apps/#{application}"
 
 #server login
