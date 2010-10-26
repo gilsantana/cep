@@ -10,6 +10,7 @@ module Moonshine::Manifest::Rails::Postgresql
     package 'postgresql', :ensure => :installed
     package 'postgresql-client', :ensure => :installed
     package 'postgresql-contrib', :ensure => :installed
+    package 'postgresql-server-dev-8.4', :ensure => :installed
     package 'libpq-dev', :ensure => :installed
     service 'postgresql-8.4',
       :ensure     => :running,
