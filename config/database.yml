@@ -39,7 +39,7 @@ test:
   encoding: unicode
   database: qualidade_test
   pool: 5
-  username: sanderson
+  username: postgres
   password: 072029
 
 production:
