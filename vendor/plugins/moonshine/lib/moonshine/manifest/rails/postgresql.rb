@@ -48,7 +48,12 @@ module Moonshine::Manifest::Rails::Postgresql
 
   # Grant the database user specified in the current <tt>database_environment</tt>
   # permisson to access the database with the supplied password
-
+  def postgresql_user
+    psql "CREATE USER #{database_environment[:username]} WITH PASSWORD '#{database_environment[:password]}'",
+      :alias    => "postgresql_user",
+      :unless   => psql_query('\\\\du') + "| grep #{database_environment[:username]}",
+      :require  => service('postgresql-8.4')
+  end
 
   # Create the database from the current <tt>database_environment</tt>
   def postgresql_database
