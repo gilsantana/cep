@@ -1,1 +1,1 @@
-server 'qualidade', :app, :web, :db, :primary => true
+server 'local', :app, :web, :db, :primary => true
