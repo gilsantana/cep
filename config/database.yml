@@ -13,7 +13,7 @@ development:
   encoding: unicode
   database: qualidade_development
   pool: 5
-  username: postgres
+  username: sanderson
   password: 072029
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -39,7 +39,7 @@ test:
   encoding: unicode
   database: qualidade_test
   pool: 5
-  username: postgres
+  username: sanderson
   password: 072029
 
 production:

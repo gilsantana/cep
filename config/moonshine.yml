@@ -24,8 +24,8 @@
 :domain: localhost
 
 # Domain aliases for application. One common use of this is for asset hosts.
-#:domain_aliases:
-#  - assets1.yourapp.com
+:domain_aliases:
+  - qualidade.localhost
 #  - assets2.yourapp.com
 
 # Source control management to use. Defaults to git.
