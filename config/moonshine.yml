@@ -25,7 +25,7 @@
 
 # Domain aliases for application. One common use of this is for asset hosts.
 #:domain_aliases:
-#  - qualidade.gilsantana.me
+#  - assets1.gilsantana.me
 #  - assets2.yourapp.com
 
 # Source control management to use. Defaults to git.
