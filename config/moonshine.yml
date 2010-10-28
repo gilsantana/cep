@@ -12,7 +12,7 @@
 :application: qualidade
 
 # Deploy user
-:user: rails
+:user: root
 
 # Timezone to set server's time to. Defaults to UTC
 :time_zone: Recife
