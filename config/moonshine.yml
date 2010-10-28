@@ -21,11 +21,11 @@
 :deploy_to: /srv/qualidade
 
 # Primary domain application will be accessed as 
-:domain: gilsantana.me
+:domain: qualidade.gilsantana.me
 
 # Domain aliases for application. One common use of this is for asset hosts.
-:domain_aliases:
-  - qualidade.gilsantana.me
+#:domain_aliases:
+#  - qualidade.gilsantana.me
 #  - assets2.yourapp.com
 
 # Source control management to use. Defaults to git.
