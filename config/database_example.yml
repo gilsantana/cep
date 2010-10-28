@@ -3,23 +3,23 @@ development:
   encoding: unicode
   database: qualidade_development
   pool: 5
-  username: sanderson
-  password: 072029
+  username: usuario
+  password: senha
 
 test:
   adapter: postgresql
   encoding: unicode
   database: qualidade_test
   pool: 5
-  username: sanderson
-  password: 072029
+  username: usuario
+  password: senha
 
 production:
   adapter: postgresql
   encoding: unicode
   database: qualidade_production
   pool: 5
-  username: sanderson
-  password: 072029
+  username: usuario
+  password: senha
   host: localhost
   port: 5432
